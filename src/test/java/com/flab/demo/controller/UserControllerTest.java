@@ -11,25 +11,23 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
+import static com.flab.demo.fixture.UserFixture.TEST_EMAIL;
+import static com.flab.demo.fixture.UserFixture.TEST_PASSWORD;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureWebTestClient(timeout = "100000")
+@AutoConfigureWebTestClient
 public class UserControllerTest {
-
     @Autowired
-    WebTestClient webTestClient;
+    private WebTestClient webTestClient;
 
     @Test
     @DisplayName("아이디와 비밀번호를 입력받아 회원가입에 성공하는지")
     void createUser() {
         // given
-        String userName = "sgkim94@github.com";
-        String passWord = "123456";
-
         CreateUserRequestDto user = CreateUserRequestDto.builder()
-                .email(userName)
-                .password(passWord)
+                .email(TEST_EMAIL)
+                .password(TEST_PASSWORD)
                 .build();
 
         // when
@@ -43,7 +41,7 @@ public class UserControllerTest {
                 .returnResult().getResponseBody();
 
         // then
-        assertThat(savedUser.getEmail()).isEqualTo(userName);
-        assertThat(savedUser.getPassword()).isEqualTo(passWord);
+        assertThat(savedUser.getEmail()).isEqualTo(TEST_EMAIL);
+        assertThat(savedUser.getPassword()).isEqualTo(TEST_PASSWORD);
     }
 }
