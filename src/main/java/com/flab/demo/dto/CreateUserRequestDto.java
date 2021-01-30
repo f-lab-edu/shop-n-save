@@ -1,5 +1,6 @@
 package com.flab.demo.dto;
 
+import com.flab.demo.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,5 +15,9 @@ public class CreateUserRequestDto {
     public CreateUserRequestDto(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public User toEntity() {
+        return new User(this.email, this.password);
     }
 }
