@@ -18,6 +18,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
 public class UserControllerTest {
+
     @Autowired
     private WebTestClient webTestClient;
 

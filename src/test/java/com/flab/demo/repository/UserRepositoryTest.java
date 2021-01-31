@@ -16,6 +16,7 @@ import static org.junit.Assert.assertThrows;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 class UserRepositoryTest {
+
     @Autowired
     private UserRepository userRepository;
 
