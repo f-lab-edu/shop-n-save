@@ -37,8 +37,13 @@ class UserRepositoryTest {
     @Test
     @DisplayName("사용자 정보 저장 시 email 형식이 아닌 경우 예외가 발생된다.")
     void save_not_valid_email() {
+        User user = User.builder()
+                .email("sgkim")
+                .password("1234")
+                .build();
+
         assertThrows(TransactionSystemException.class,
-                () -> userRepository.save(new User("abc", "234565"))
+                () -> userRepository.save(user)
         );
     }
 }
