@@ -3,15 +3,14 @@ package com.flab.demo.service;
 import com.flab.demo.domain.User;
 import com.flab.demo.dto.CreateUserRequestDto;
 import com.flab.demo.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class UserService {
-    private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserRepository userRepository;
 
     public User save(CreateUserRequestDto user) {
         User registerUser = userRepository.findByEmail(user.getEmail());
