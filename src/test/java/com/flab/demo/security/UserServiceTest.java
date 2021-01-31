@@ -1,7 +1,6 @@
 package com.flab.demo.security;
 
 import com.flab.demo.domain.User;
-import com.flab.demo.dto.CreateUserRequestDto;
 import com.flab.demo.repository.UserRepository;
 import com.flab.demo.service.UserService;
 import org.junit.jupiter.api.DisplayName;
@@ -29,10 +28,10 @@ class UserServiceTest {
     @Test
     @DisplayName("사용자 회원가입 시 존재하는 email 인 상황일 때 IllegalArgumentException 예외가 발생한다.")
     void save_fail_when_exist_user_email() {
-        when(userRepository.findByEmail(TEST_EMAIL)).thenReturn(new User(TEST_EMAIL, TEST_PASSWORD));
+        when(userRepository.findByEmail(TEST_EMAIL)).thenReturn(TEST_USER);
 
         String errorMessage = assertThrows(IllegalArgumentException.class,
-                () -> userService.save(new CreateUserRequestDto(TEST_EMAIL, TEST_PASSWORD))
+                () -> userService.save(CREATE_USER_REQUEST_DTO)
         ).getMessage();
 
         assertThat(errorMessage).isEqualTo("등록된 사용자입니다.");
@@ -47,5 +46,15 @@ class UserServiceTest {
 
         assertThat(savedUser.getEmail()).isEqualTo(TEST_EMAIL);
         assertThat(savedUser.getPassword()).isEqualTo(TEST_PASSWORD);
+    }
+
+    @Test
+    @DisplayName("올바른 형태의 email 과 password 를 입력받아 login 을 시도하는 경우 해당 User 를 리턴한다.")
+    void login() {
+        when(userRepository.findByEmail(any())).thenReturn(TEST_USER);
+
+        User savedUser = userService.login(LOGIN_USER_REQUEST_DTO);
+
+        assertThat(savedUser.getId()).isNotNull();
     }
 }
