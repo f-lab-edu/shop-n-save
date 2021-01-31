@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/users")
 public class UserController {
+    public static final String LOGIN_SESSION_KEY = "id";
 
     private UserService userService;
 
@@ -27,7 +29,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@Valid  @RequestBody LoginUserRequestDto user) {
+    public ResponseEntity login(@Valid  @RequestBody LoginUserRequestDto user, HttpServletRequest request) {
+        User loginUser = userService.login(user);
+
+        request.setAttribute(LOGIN_SESSION_KEY, loginUser.getId());
         return ResponseEntity.ok().build();
     }
 }
