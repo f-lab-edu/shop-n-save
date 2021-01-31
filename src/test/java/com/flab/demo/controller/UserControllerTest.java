@@ -2,6 +2,7 @@ package com.flab.demo.controller;
 
 import com.flab.demo.domain.User;
 import com.flab.demo.dto.CreateUserRequestDto;
+import com.flab.demo.dto.LoginUserRequestDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +12,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
-import static com.flab.demo.fixture.UserFixture.TEST_EMAIL;
-import static com.flab.demo.fixture.UserFixture.TEST_PASSWORD;
+import static com.flab.demo.fixture.UserFixture.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
 public class UserControllerTest {
+    private static final String USERS_BASE_URL = "/users";
 
     @Autowired
     private WebTestClient webTestClient;
@@ -25,17 +26,11 @@ public class UserControllerTest {
     @Test
     @DisplayName("올바른 email 과 password 를 입력받은 경우 User 테이블에 저장되며 User 정보와 함께 ok status 를 리턴한다.")
     void createUser() {
-        // given
-        CreateUserRequestDto user = CreateUserRequestDto.builder()
-                .email(TEST_EMAIL)
-                .password(TEST_PASSWORD)
-                .build();
-
         // when
         User savedUser = webTestClient.post()
-                .uri("/users")
+                .uri(USERS_BASE_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(Mono.just(user), CreateUserRequestDto.class)
+                .body(Mono.just(TEST_USER), CreateUserRequestDto.class)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(User.class)
@@ -45,4 +40,28 @@ public class UserControllerTest {
         assertThat(savedUser.getEmail()).isEqualTo(TEST_EMAIL);
         assertThat(savedUser.getPassword()).isEqualTo(TEST_PASSWORD);
     }
+
+    @Test
+    @DisplayName("회원가입된 email 과 password 를 입력받아 로그인 시도하는 경우 해당 회원 ID 를 ok status 와 함께 리턴한다.")
+    void login() {
+        // given
+        LoginUserRequestDto user = LoginUserRequestDto.builder()
+                .email(TEST_EMAIL)
+                .password(TEST_PASSWORD)
+                .build();
+
+        // when
+        User savedUser = webTestClient.post()
+                .uri(USERS_BASE_URL + "/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(Mono.just(user), LoginUserRequestDto.class)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(User.class)
+                .returnResult().getResponseBody();
+
+        // then
+        assertThat(savedUser.getId()).isNotNull();
+    }
+
 }
