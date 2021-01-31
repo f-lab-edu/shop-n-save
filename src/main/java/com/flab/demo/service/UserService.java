@@ -2,6 +2,7 @@ package com.flab.demo.service;
 
 import com.flab.demo.domain.User;
 import com.flab.demo.dto.CreateUserRequestDto;
+import com.flab.demo.dto.LoginUserRequestDto;
 import com.flab.demo.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,15 @@ public class UserService {
         }
 
         return userRepository.save(user.toEntity());
+    }
+
+    public User login(LoginUserRequestDto user) {
+        User registerUser = userRepository.findByEmail(user.getEmail());
+
+        if (registerUser == null) {
+            throw new IllegalArgumentException("존재하지 않는 사용자입니다.");
+        }
+
+        return registerUser;
     }
 }
