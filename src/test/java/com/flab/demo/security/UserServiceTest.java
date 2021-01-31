@@ -49,12 +49,24 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("올바른 형태의 email 과 password 를 입력받아 login 을 시도하는 경우 해당 User 를 리턴한다.")
+    @DisplayName("회원가입된 email 과 password 를 입력받아 login 을 시도하는 경우 해당 User 를 리턴한다.")
     void login() {
         when(userRepository.findByEmail(any())).thenReturn(TEST_USER);
 
         User savedUser = userService.login(LOGIN_USER_REQUEST_DTO);
 
         assertThat(savedUser.getId()).isNotNull();
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 email 과 password 를 입력받은 경우 예외처리한다.")
+    void login_fail() {
+        when(userRepository.findByEmail(any())).thenReturn(null);
+
+        String errorMessage = assertThrows(IllegalArgumentException.class,
+                () -> userService.login(LOGIN_USER_REQUEST_DTO)
+        ).getMessage();
+
+        assertThat(errorMessage).isEqualTo("존재하지 않는 사용자입니다.");
     }
 }
