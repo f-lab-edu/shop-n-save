@@ -27,7 +27,7 @@ class UserServiceTest {
     private UserRepository userRepository;
 
     @Test
-    @DisplayName("사용자 회원가입 시 존재하는 email인 경우 예외처리를 하는지")
+    @DisplayName("사용자 회원가입 시 존재하는 email 인 상황일 때 IllegalArgumentException 예외가 발생한다.")
     void save_fail_when_exist_user_email() {
         when(userRepository.findByEmail(TEST_EMAIL)).thenReturn(new User(TEST_EMAIL, TEST_PASSWORD));
 
@@ -39,7 +39,7 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("이메일과 패스워드를 입력받아 회원가입을 할 수 있는지")
+    @DisplayName("올바른 형태의 email 과 password 를 입력받은 경우 User 테이블에 저장된 후 User 를 리턴한다.")
     void save() {
         when(userRepository.save(any())).thenReturn(TEST_USER);
 

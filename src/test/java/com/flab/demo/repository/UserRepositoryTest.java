@@ -21,7 +21,7 @@ class UserRepositoryTest {
     private UserRepository userRepository;
 
     @Test
-    @DisplayName("User 정보를 email 로 검색할 수 있는지")
+    @DisplayName("User 정보를 email 로 검색할 상황일 때 email 에 해당하는 User 를 리턴한다.")
     void findByEmail() {
         //given
         User savedUser = userRepository.save(TEST_USER);
@@ -35,7 +35,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("사용자 정보 저장 시 email 형식이 아닌 경우 예외처리 하는지")
+    @DisplayName("사용자 정보 저장 시 email 형식이 아닌 경우 예외가 발생된다.")
     void save_not_valid_email() {
         assertThrows(TransactionSystemException.class,
                 () -> userRepository.save(new User("abc", "234565"))

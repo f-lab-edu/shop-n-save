@@ -23,7 +23,7 @@ public class UserControllerTest {
     private WebTestClient webTestClient;
 
     @Test
-    @DisplayName("아이디와 비밀번호를 입력받아 회원가입에 성공하는지")
+    @DisplayName("올바른 email 과 password 를 입력받은 경우 User 테이블에 저장되며 User 정보와 함께 ok status 를 리턴한다.")
     void createUser() {
         // given
         CreateUserRequestDto user = CreateUserRequestDto.builder()
