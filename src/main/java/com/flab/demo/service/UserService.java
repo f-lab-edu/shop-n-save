@@ -3,11 +3,11 @@ package com.flab.demo.service;
 import com.flab.demo.domain.User;
 import com.flab.demo.dto.CreateUserRequestDto;
 import com.flab.demo.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
