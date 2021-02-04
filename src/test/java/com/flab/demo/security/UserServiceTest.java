@@ -1,7 +1,5 @@
 package com.flab.demo.security;
 
-import com.flab.demo.domain.User;
-import com.flab.demo.dto.CreateUserRequestDto;
 import com.flab.demo.mapper.UserMapper;
 import com.flab.demo.service.UserService;
 import org.junit.jupiter.api.DisplayName;
