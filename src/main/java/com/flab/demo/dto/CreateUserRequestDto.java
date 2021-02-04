@@ -28,10 +28,10 @@ public class CreateUserRequestDto {
         this.name = name;
     }
 
-    public User toEntity() {
+    public User toEntity(String encryptPassword) {
         return User.builder()
                 .email(this.email)
-                .password(this.password)
+                .password(encryptPassword)
                 .name(this.name)
                 .build();
     }
