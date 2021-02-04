@@ -2,7 +2,7 @@ package com.flab.demo.service;
 
 import com.flab.demo.domain.User;
 import com.flab.demo.dto.CreateUserRequestDto;
-import com.flab.demo.repository.UserRepository;
+import com.flab.demo.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,15 +10,19 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public User save(CreateUserRequestDto user) {
-        User registerUser = userRepository.findByEmail(user.getEmail());
+    public void save(CreateUserRequestDto user) {
+        User registerUser = userMapper.findByEmail(user.getEmail());
 
         if (registerUser != null) {
             throw new IllegalArgumentException("등록된 사용자입니다.");
         }
 
-        return userRepository.save(user.toEntity());
+        int addCount = userMapper.save(user.toEntity());
+
+        if (addCount == 0) {
+            throw new RuntimeException("사용자 정보를 저장에 실패하였습니다.");
+        }
     }
 }
