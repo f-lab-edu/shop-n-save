@@ -11,9 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
-import static com.flab.demo.fixture.UserFixture.TEST_EMAIL;
-import static com.flab.demo.fixture.UserFixture.TEST_PASSWORD;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static com.flab.demo.fixture.UserFixture.CREATE_USER_REQUEST_DTO;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
@@ -25,24 +23,14 @@ public class UserControllerTest {
     @Test
     @DisplayName("올바른 email 과 password 를 입력받은 경우 User 테이블에 저장되며 User 정보와 함께 ok status 를 리턴한다.")
     void createUser() {
-        // given
-        CreateUserRequestDto user = CreateUserRequestDto.builder()
-                .email(TEST_EMAIL)
-                .password(TEST_PASSWORD)
-                .build();
-
         // when
         User savedUser = webTestClient.post()
                 .uri("/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(Mono.just(user), CreateUserRequestDto.class)
+                .body(Mono.just(CREATE_USER_REQUEST_DTO), CreateUserRequestDto.class)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(User.class)
                 .returnResult().getResponseBody();
-
-        // then
-        assertThat(savedUser.getEmail()).isEqualTo(TEST_EMAIL);
-        assertThat(savedUser.getPassword()).isEqualTo(TEST_PASSWORD);
     }
 }
