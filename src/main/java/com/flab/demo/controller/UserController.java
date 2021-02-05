@@ -1,6 +1,8 @@
 package com.flab.demo.controller;
 
+import com.flab.demo.domain.User;
 import com.flab.demo.dto.CreateUserRequestDto;
+import com.flab.demo.hash.Sha256;
 import com.flab.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +20,8 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity create(@Valid @RequestBody CreateUserRequestDto user) {
-        userService.save(user);
+        User hashUser = userService.convertToUserByHashPassword(user, new Sha256());
+        userService.save(hashUser);
         return ResponseEntity.ok().build();
     }
 }
