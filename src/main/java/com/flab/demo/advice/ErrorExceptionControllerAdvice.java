@@ -11,6 +11,7 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 @Slf4j
 @ControllerAdvice
 public class ErrorExceptionControllerAdvice {
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity handleMethodException(Exception e) {
         log.error(String.valueOf(e.getCause()));
