@@ -31,7 +31,7 @@ class UserServiceTest {
         when(userMapper.findByEmail(TEST_EMAIL)).thenReturn(TEST_USER);
 
         String errorMessage = assertThrows(IllegalArgumentException.class,
-                () -> userService.save(CREATE_USER_REQUEST_DTO)
+                () -> userService.save(TEST_USER_WITH_HASH_PASSWORD)
         ).getMessage();
 
         assertThat(errorMessage).isEqualTo("등록된 사용자입니다.");
@@ -44,7 +44,7 @@ class UserServiceTest {
         when(userMapper.save(any())).thenReturn(0);
 
         String errorMessage = assertThrows(RuntimeException.class,
-                () -> userService.save(CREATE_USER_REQUEST_DTO)
+                () -> userService.save(TEST_USER_WITH_HASH_PASSWORD)
         ).getMessage();
 
         assertThat(errorMessage).isEqualTo("사용자 정보를 저장에 실패하였습니다.");
@@ -56,7 +56,7 @@ class UserServiceTest {
     void save() {
         when(userMapper.save(any())).thenReturn(1);
 
-        userService.save(CREATE_USER_REQUEST_DTO);
+        userService.save(TEST_USER_WITH_HASH_PASSWORD);
 
         verify(userMapper).findByEmail(any());
         verify(userMapper).save(any());
