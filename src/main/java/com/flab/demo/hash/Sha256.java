@@ -1,12 +1,12 @@
-package com.flab.demo.utils;
+package com.flab.demo.hash;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class SHAUtil {
+public class Sha256 implements Hash {
     public static final String SHA_256 = "SHA-256";
 
-    public static String digest(String input, String algorithm) {
+    public String digest(String input, String algorithm) {
         MessageDigest md;
 
         try {
