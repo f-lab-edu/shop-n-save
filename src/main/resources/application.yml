@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: sgkim
+    active: local
 ---
 spring:
   datasource:
@@ -11,8 +11,89 @@ spring:
 
   config:
     activate:
-      on-profile: sgkim
+      on-profile: local
 
+
+mybatis:
+  type-aliases-package: com.flab.demo.dto, com.flab.demo.domain
+  mapper-locations: classpath:mapper/**.xml
+
+  configuration:
+    map-underscore-to-camel-case: true
+
+---
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+
+  config:
+    activate:
+      on-profile: local
+
+
+mybatis:
+  type-aliases-package: com.flab.demo.dto, com.flab.demo.domain
+  mapper-locations: classpath:mapper/**.xml
+
+  configuration:
+    map-underscore-to-camel-case: true
+
+---
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+
+  config:
+    activate:
+      on-profile: development
+
+
+mybatis:
+  type-aliases-package: com.flab.demo.dto, com.flab.demo.domain
+  mapper-locations: classpath:mapper/**.xml
+
+  configuration:
+    map-underscore-to-camel-case: true
+
+---
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+
+  config:
+    activate:
+      on-profile: staging
+
+
+mybatis:
+  type-aliases-package: com.flab.demo.dto, com.flab.demo.domain
+  mapper-locations: classpath:mapper/**.xml
+
+  configuration:
+    map-underscore-to-camel-case: true
+
+
+#TODO : 운영 환경에 대한 설정이 정해지면 수정 필요
+---
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+
+  config:
+    activate:
+      on-profile: production
 
 mybatis:
   type-aliases-package: com.flab.demo.dto, com.flab.demo.domain
