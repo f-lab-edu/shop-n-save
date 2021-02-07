@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import static com.flab.demo.controller.ResponseEntityGroup.OK_RESPONSE_ENTITY;
+
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -22,6 +24,6 @@ public class UserController {
     public ResponseEntity create(@Valid @RequestBody CreateUserRequestDto user) {
         User hashUser = userService.convertToUserByHashPassword(user, new Sha256());
         userService.save(hashUser);
-        return ResponseEntity.ok().build();
+        return OK_RESPONSE_ENTITY.getEntity();
     }
 }

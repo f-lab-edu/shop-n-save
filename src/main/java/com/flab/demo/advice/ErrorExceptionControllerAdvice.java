@@ -6,7 +6,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static com.flab.demo.controller.ResponseEntityGroup.INTERNAL_SERVER_ERROR_RESPONSE_ENTITY;
 
 @Slf4j
 @ControllerAdvice
@@ -14,8 +14,9 @@ public class ErrorExceptionControllerAdvice {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity handleMethodException(Exception e) {
-        log.error(String.valueOf(e.getCause()));
-        return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
+        e.printStackTrace();
+
+        return INTERNAL_SERVER_ERROR_RESPONSE_ENTITY.getEntity();
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -27,14 +28,14 @@ public class ErrorExceptionControllerAdvice {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity handleRuntimeException(RuntimeException e) {
-        log.error(String.valueOf(e.getMessage()));
+        e.printStackTrace();
 
         return ResponseEntity.unprocessableEntity().body(e.getMessage());
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity handleIllegalArgumentException(IllegalArgumentException e) {
-        log.error(String.valueOf(e.getMessage()));
+        e.printStackTrace();
 
         return ResponseEntity.unprocessableEntity().body(e.getMessage());
     }
