@@ -24,7 +24,7 @@ public class UserControllerTest {
     @DisplayName("올바른 email 과 password 를 입력받은 경우 User 테이블에 저장되며 User 정보와 함께 ok status 를 리턴한다.")
     void createUser() {
         // when
-        User savedUser = webTestClient.post()
+        webTestClient.post()
                 .uri("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(CREATE_USER_REQUEST_DTO), CreateUserRequestDto.class)
