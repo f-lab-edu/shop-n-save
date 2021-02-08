@@ -14,7 +14,7 @@ public class ErrorExceptionControllerAdvice {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity handleMethodException(Exception e) {
-        e.printStackTrace();
+        log.error("Exception Stack Trace : ", e);
 
         return INTERNAL_SERVER_ERROR_RESPONSE_ENTITY.getEntity();
     }
