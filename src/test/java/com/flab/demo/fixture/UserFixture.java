@@ -2,7 +2,7 @@ package com.flab.demo.fixture;
 
 import com.flab.demo.domain.User;
 import com.flab.demo.dto.CreateUserRequestDto;
-import com.flab.demo.hash.Sha256;
+import com.flab.demo.security.Sha256;
 
 public class UserFixture {
     public static final String TEST_EMAIL = "sgkim94@github.com";

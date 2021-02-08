@@ -2,12 +2,12 @@ package com.flab.demo.service;
 
 import com.flab.demo.domain.User;
 import com.flab.demo.dto.CreateUserRequestDto;
-import com.flab.demo.hash.Hash;
+import com.flab.demo.security.Cryptographic;
 import com.flab.demo.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.flab.demo.hash.Sha256.SHA_256;
+import static com.flab.demo.security.Sha256.SHA_256;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +29,7 @@ public class UserService {
         }
     }
 
-    public User convertToUserByHashPassword(CreateUserRequestDto user, Hash hash) {
-        return user.toEntity(hash.digest(user.getPassword(), SHA_256));
+    public User convertToUserByHashPassword(CreateUserRequestDto user, Cryptographic cryptographic) {
+        return user.toEntity(cryptographic.digest(user.getPassword(), SHA_256));
     }
 }

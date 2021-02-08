@@ -1,7 +1,6 @@
-package com.flab.demo.security;
+package com.flab.demo.service;
 
 import com.flab.demo.mapper.UserMapper;
-import com.flab.demo.service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
