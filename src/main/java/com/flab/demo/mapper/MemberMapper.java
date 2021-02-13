@@ -12,9 +12,6 @@ public interface MemberMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int create(@Param("member") Member member);
 
-    @Select("SELECT * FROM MEMBER_INFO")
-    List<Member> getAll();
-
     @Select("SELECT * FROM MEMBER_INFO WHERE id=#{id}")
     Member getById(@Param("id") String id);
 
