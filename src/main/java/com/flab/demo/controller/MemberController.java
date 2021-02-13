@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 public class MemberController {
@@ -16,7 +18,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/members")
-    public ResponseEntity<Member> create(@RequestBody Member member) {
+    public ResponseEntity<Member> create(@Valid @RequestBody Member member) {
         try {
             return new ResponseEntity<Member>(memberService.create(member), HttpStatus.OK);
         } catch(Exception e) {
