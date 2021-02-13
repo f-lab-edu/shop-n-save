@@ -19,19 +19,11 @@ public class MemberController {
 
     @PostMapping("/members")
     public ResponseEntity<Member> create(@Valid @RequestBody Member member) {
-        try {
-            return new ResponseEntity<Member>(memberService.create(member), HttpStatus.OK);
-        } catch(Exception e) {
-            return new ResponseEntity<Member>(HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<Member>(memberService.create(member), HttpStatus.OK);
     }
 
     @GetMapping("/members/{id}")
     public ResponseEntity<Member> getById(@PathVariable("id") String id) {
-        try {
-            return new ResponseEntity<Member>(memberService.getById(id), HttpStatus.OK);
-        } catch(Exception e) {
-            return new ResponseEntity<Member>(HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<Member>(memberService.getById(id), HttpStatus.OK);
     }
 }
