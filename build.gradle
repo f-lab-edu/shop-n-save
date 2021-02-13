@@ -20,7 +20,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
-	compile group: 'org.springframework.햐boot', name: 'spring-boot-starter-web'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
@@ -28,8 +28,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compile "org.springframework.boot:spring-boot-starter-jdbc"
 	compile group: 'mysql', name: 'mysql-connector-java'
-	compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-autoconfigure'
-	compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter'
+	compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-autoconfigure', version: '2.1.4'
+	compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.1.4'
 }
 
 test {
