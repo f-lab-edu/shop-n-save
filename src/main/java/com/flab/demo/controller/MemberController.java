@@ -7,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/member")
 public class MemberController {
@@ -22,23 +20,19 @@ public class MemberController {
 
     @PostMapping("")
     public ResponseEntity<Member> create(@RequestBody Member member) {
-        ResponseEntity<Member> entity = null;
         try {
-            entity = new ResponseEntity<Member>(memberService.create(member), HttpStatus.OK);
+            return new ResponseEntity<Member>(memberService.create(member), HttpStatus.OK);
         } catch(Exception e) {
-            entity = new ResponseEntity<Member>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Member>(HttpStatus.BAD_REQUEST);
         }
-        return entity;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Member> getById(@PathVariable("id") String id) {
-        ResponseEntity<Member> entity = null;
         try {
-            entity = new ResponseEntity<Member>(memberService.getById(id), HttpStatus.OK);
+            return new ResponseEntity<Member>(memberService.getById(id), HttpStatus.OK);
         } catch(Exception e) {
-            entity = new ResponseEntity<Member>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Member>(HttpStatus.BAD_REQUEST);
         }
-        return entity;
     }
 }
