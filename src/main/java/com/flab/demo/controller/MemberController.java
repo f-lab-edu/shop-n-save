@@ -31,18 +31,6 @@ public class MemberController {
         return entity;
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<Member>> getAll() {
-        ResponseEntity<List<Member>> entity = null;
-        try {
-            entity = new ResponseEntity<>(memberService.getAll(), HttpStatus.OK);
-        } catch(Exception e) {
-            e.printStackTrace();
-            entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return entity;
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Member> getById(@PathVariable("id") String id) {
         ResponseEntity<Member> entity = null;
