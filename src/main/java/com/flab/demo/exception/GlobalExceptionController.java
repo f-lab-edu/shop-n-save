@@ -17,4 +17,9 @@ public class GlobalExceptionController {
     public ResponseEntity<List<ObjectError>> handleValidationExceptions(BindingResult bindingResult) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleAll(Exception exception) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+    }
 }
