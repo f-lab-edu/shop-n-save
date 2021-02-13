@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/member")
 public class MemberController {
 
     private final MemberService memberService;
@@ -18,7 +17,7 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @PostMapping("")
+    @PostMapping("/members")
     public ResponseEntity<Member> create(@RequestBody Member member) {
         try {
             return new ResponseEntity<Member>(memberService.create(member), HttpStatus.OK);
@@ -27,7 +26,7 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/members/{id}")
     public ResponseEntity<Member> getById(@PathVariable("id") String id) {
         try {
             return new ResponseEntity<Member>(memberService.getById(id), HttpStatus.OK);
