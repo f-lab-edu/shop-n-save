@@ -2,7 +2,8 @@ package com.flab.demo.domain;
 
 import lombok.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
