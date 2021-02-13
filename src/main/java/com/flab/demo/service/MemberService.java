@@ -24,10 +24,6 @@ public class MemberService {
         return member;
     }
 
-    public List<Member> getAll() {
-        return memberMapper.getAll();
-    }
-
     public Member getById(String id) {
         return memberMapper.getById(id);
     }
