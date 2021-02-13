@@ -38,12 +38,12 @@ public class MemberServiceTest {
     public void 중복_회원_예외() {
         // given
         Member member1 = new Member();
-        member1.setEmail("abc@abc");
+        member1.setEmail("rewq@abc");
         member1.setPassword("pw");
         member1.setName("huimin");
 
         Member member2 = new Member();
-        member2.setEmail("abc@abc");
+        member2.setEmail("rewq@abc");
         member2.setPassword("pwa");
         member2.setName("huimind");
 
