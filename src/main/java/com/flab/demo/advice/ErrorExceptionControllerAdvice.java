@@ -14,7 +14,7 @@ public class ErrorExceptionControllerAdvice {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity handleMethodException(Exception e) {
-        log.error("Server Internal Error : ", e);
+        log.error("[Exception] Server Internal Error : ", e);
 
         return INTERNAL_SERVER_ERROR_RESPONSE_ENTITY.getEntity();
     }
@@ -28,15 +28,11 @@ public class ErrorExceptionControllerAdvice {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity handleRuntimeException(RuntimeException e) {
-        e.printStackTrace();
-
         return ResponseEntity.unprocessableEntity().body(e.getMessage());
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity handleIllegalArgumentException(IllegalArgumentException e) {
-        e.printStackTrace();
-
         return ResponseEntity.unprocessableEntity().body(e.getMessage());
     }
 }
