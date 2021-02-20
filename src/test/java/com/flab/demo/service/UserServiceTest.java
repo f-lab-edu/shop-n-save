@@ -30,7 +30,7 @@ class UserServiceTest {
         when(userMapper.findByEmail(TEST_EMAIL)).thenReturn(TEST_USER);
 
         String errorMessage = assertThrows(IllegalArgumentException.class,
-                () -> userService.save(TEST_USER_WITH_HASH_PASSWORD)
+                () -> userService.save(CREATE_USER_REQUEST_DTO)
         ).getMessage();
 
         assertThat(errorMessage).isEqualTo("등록된 사용자입니다.");
@@ -43,7 +43,7 @@ class UserServiceTest {
         when(userMapper.save(any())).thenReturn(0);
 
         String errorMessage = assertThrows(RuntimeException.class,
-                () -> userService.save(TEST_USER_WITH_HASH_PASSWORD)
+                () -> userService.save(CREATE_USER_REQUEST_DTO)
         ).getMessage();
 
         assertThat(errorMessage).isEqualTo("사용자 정보를 저장에 실패하였습니다.");
@@ -55,9 +55,31 @@ class UserServiceTest {
     void save() {
         when(userMapper.save(any())).thenReturn(1);
 
-        userService.save(TEST_USER_WITH_HASH_PASSWORD);
+        userService.save(CREATE_USER_REQUEST_DTO);
 
         verify(userMapper).findByEmail(any());
         verify(userMapper).save(any());
+    }
+
+    @Test
+    @DisplayName("사용자의 이메일과 패스워드를 받아 로그인 상공 시 해당 ID 를 리턴한다.")
+    void login() {
+        when(userMapper.findByEmail(any())).thenReturn(TEST_USER);
+
+        userService.login(LOGIN_USER_REQUEST_DTO);
+
+        verify(userMapper).findByEmail(any());
+    }
+
+    @Test
+    @DisplayName("사용자의 이메일과 패스워드를 받아 로그인 사용자가 존재하지 않는 경우 예외처리한다.")
+    void login_fail() {
+        when(userMapper.findByEmail(any())).thenReturn(null);
+
+        String errorMessage = assertThrows(IllegalArgumentException.class,
+                () -> userService.login(LOGIN_USER_REQUEST_DTO)
+        ).getMessage();
+
+        assertThat(errorMessage).isEqualTo("사용자가 존재하지 않습니다.");
     }
 }
