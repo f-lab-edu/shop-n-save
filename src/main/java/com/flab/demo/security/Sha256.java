@@ -19,7 +19,7 @@ public class Sha256 implements Cryptographic {
         return bytesToHex(digest);
     }
 
-    private static String bytesToHex(byte[] bytes) {
+    private String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
 
         for (byte data : bytes) {
