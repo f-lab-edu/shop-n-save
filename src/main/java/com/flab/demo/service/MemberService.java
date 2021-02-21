@@ -2,18 +2,16 @@ package com.flab.demo.service;
 
 import com.flab.demo.domain.Member;
 import com.flab.demo.mapper.MemberMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class MemberService {
 
     private final MemberMapper memberMapper;
-
-    public MemberService(MemberMapper memberMapper) {
-        this.memberMapper = memberMapper;
-    }
 
     public Member create(Member member) {
         if(memberMapper.getByEmail(member.getEmail()) != null) {
