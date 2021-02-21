@@ -3,9 +3,7 @@ package com.flab.demo.service;
 import com.flab.demo.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -16,15 +14,22 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MemberServiceTest {
 
     @Autowired
-    MemberService memberService;
+    private MemberService memberService;
 
     @Test
-    void 회원가입() {
+    public void getByIdTest() {
+        Member findMember = memberService.getById("known_id");
+        assertNull(findMember);
+    }
+
+    @Test
+    public void 회원가입() {
         // given
-        Member member = new Member();
-        member.setEmail("test@abc");
-        member.setPassword("pw");
-        member.setName("testName");
+        Member member = new Member().builder()
+                .email("test@abc")
+                .password("pw")
+                .name("testName")
+                .build();
 
         // when
         Member newMember = memberService.create(member);
@@ -37,15 +42,17 @@ public class MemberServiceTest {
     @Test
     public void 중복_회원_예외() {
         // given
-        Member member1 = new Member();
-        member1.setEmail("rewq@abc");
-        member1.setPassword("pw");
-        member1.setName("huimin");
+        Member member1 = new Member().builder()
+                .email("rewq@abc")
+                .password("pw")
+                .name("huimin")
+                .build();
 
-        Member member2 = new Member();
-        member2.setEmail("rewq@abc");
-        member2.setPassword("pwa");
-        member2.setName("huimind");
+        Member member2 = new Member().builder()
+                .email("rewq@abc")
+                .password("pw")
+                .name("huimin")
+                .build();
 
         // when
         memberService.create(member1);
