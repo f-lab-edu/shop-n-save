@@ -69,7 +69,7 @@ class UserServiceTest {
 
         userService.login(LOGIN_USER_REQUEST_DTO);
 
-        verify(userMapper).findByEmail(any());
+        verify(userMapper).findByEmailAndPassword(any());
     }
 
     @Test
