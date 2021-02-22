@@ -3,6 +3,7 @@ package com.flab.demo.service;
 import com.flab.demo.domain.User;
 import com.flab.demo.dto.CreateUserRequestDto;
 import com.flab.demo.dto.LoginUserRequestDto;
+import com.flab.demo.exception.NotAuthenticationException;
 import com.flab.demo.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,10 +29,10 @@ public class UserService {
     }
 
     public Long login(LoginUserRequestDto user) {
-        User registerUser = userMapper.findByEmail(user.getEmail());
+        User registerUser = userMapper.findByEmailAndPassword(user);
 
         if (registerUser == null) {
-            throw new IllegalArgumentException("사용자가 존재하지 않습니다.");
+            throw new NotAuthenticationException("로그인 사용자 정보가 올바르지 않습니다.");
         }
 
         return registerUser.getId();
