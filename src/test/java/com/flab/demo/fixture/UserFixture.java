@@ -17,17 +17,20 @@ public class UserFixture {
             .name(TEST_NAME)
             .build();
 
-    public static final CreateUserRequestDto CREATE_USER_REQUEST_DTO
-            = CreateUserRequestDto.builder()
+    public static final CreateUserRequestDto CREATE_USER_REQUEST_DTO = CreateUserRequestDto.builder()
             .email(TEST_EMAIL)
             .name(TEST_NAME)
             .password(TEST_PASSWORD)
             .build();
 
-    public static final LoginUserRequestDto LOGIN_USER_REQUEST_DTO
-            = LoginUserRequestDto.builder()
+    public static final LoginUserRequestDto LOGIN_USER_REQUEST_DTO = LoginUserRequestDto.builder()
             .email(TEST_EMAIL)
             .password(TEST_PASSWORD)
             .build();
 
+    public static final User USER_WITH_ENCRYPT = User.builder()
+            .email(TEST_EMAIL)
+            .password(TEST_HASH_PASSWORD)
+            .name(TEST_NAME)
+            .build();
 }
