@@ -45,4 +45,32 @@ class UserMapperTest {
         assertThat(findUser.getEmail()).isEqualTo(TEST_EMAIL);
         assertThat(findUser.getPassword()).isEqualTo(TEST_PASSWORD);
     }
+
+    @Test
+    @DisplayName("로그인 시 email 과 password 로 사용자를 검색할 상황일 때 해당하는 User 를 리턴한다.")
+    void findByEmailAndPassword_test() {
+        //given
+        userMapper.save(USER_WITH_ENCRYPT);
+
+        //when
+        User findUser = userMapper.findByEmailAndPassword(LOGIN_USER_REQUEST_DTO);
+
+        //then
+        assertThat(findUser.getId()).isNotNull();
+        assertThat(findUser.getEmail()).isEqualTo(TEST_EMAIL);
+        assertThat(findUser.getPassword()).isEqualTo(TEST_HASH_PASSWORD);
+    }
+
+    @Test
+    @DisplayName("로그인 시 email 과 password 잘못된 정보인 상황일 때 아무것도 리턴하지 않는다.")
+    void findByEmailAndPassword_fail_test() {
+        //given
+        userMapper.save(TEST_USER);
+
+        //when
+        User findUser = userMapper.findByEmailAndPassword(LOGIN_USER_REQUEST_DTO);
+
+        //then
+        assertThat(findUser).isNull();
+    }
 }
