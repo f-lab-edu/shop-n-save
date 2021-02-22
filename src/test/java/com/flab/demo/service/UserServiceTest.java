@@ -1,5 +1,6 @@
 package com.flab.demo.service;
 
+import com.flab.demo.exception.NotAuthenticationException;
 import com.flab.demo.mapper.UserMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -64,7 +65,7 @@ class UserServiceTest {
     @Test
     @DisplayName("사용자의 이메일과 패스워드를 받아 로그인 상공 시 해당 ID 를 리턴한다.")
     void login() {
-        when(userMapper.findByEmail(any())).thenReturn(TEST_USER);
+        when(userMapper.findByEmailAndPassword(any())).thenReturn(TEST_USER);
 
         userService.login(LOGIN_USER_REQUEST_DTO);
 
@@ -74,12 +75,12 @@ class UserServiceTest {
     @Test
     @DisplayName("사용자의 이메일과 패스워드를 받아 로그인 사용자가 존재하지 않는 경우 예외처리한다.")
     void login_fail() {
-        when(userMapper.findByEmail(any())).thenReturn(null);
+        when(userMapper.findByEmailAndPassword(any())).thenReturn(null);
 
-        String errorMessage = assertThrows(IllegalArgumentException.class,
+        String errorMessage = assertThrows(NotAuthenticationException.class,
                 () -> userService.login(LOGIN_USER_REQUEST_DTO)
         ).getMessage();
 
-        assertThat(errorMessage).isEqualTo("사용자가 존재하지 않습니다.");
+        assertThat(errorMessage).isEqualTo("로그인 사용자 정보가 올바르지 않습니다.");
     }
 }
