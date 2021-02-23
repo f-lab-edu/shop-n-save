@@ -20,7 +20,9 @@ import static com.flab.demo.controller.ResponseEntityGroup.OK_RESPONSE_ENTITY;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
+
     private final UserService userService;
+    private final HttpSessionUtil httpSessionUtil;
 
     @PostMapping
     public ResponseEntity create(@Valid @RequestBody CreateUserRequestDto user) {
@@ -31,9 +33,9 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity login(@Valid @RequestBody LoginUserRequestDto user, HttpSession session) {
-        Long loginUserId = userService.login(user);
+        Long loginUserId = userService.findByEmailAndPassword(user);
 
-        HttpSessionUtil.addUserSession(session, loginUserId);
+        httpSessionUtil.login(session, loginUserId);
 
         return ResponseEntity.ok(loginUserId);
     }
