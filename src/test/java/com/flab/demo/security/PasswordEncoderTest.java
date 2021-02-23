@@ -17,23 +17,9 @@ class PasswordEncoderTest {
     @Test
     void encryptPassword_test() {
         //when
-        String encryptPassword = encryptPasswordBySha256();
+        String encryptPassword = passwordEncoder.encryptPassword(TEST_PASSWORD, new Sha256());
 
         //then
         assertThat(encryptPassword).isNotEqualTo(TEST_PASSWORD);
-    }
-
-    @Test
-    void encryptPasswordBySha_test() {
-        //when
-        String encryptPassword = passwordEncoder.encryptPasswordBySha256(TEST_PASSWORD);
-        String secondEncryptPassword = encryptPasswordBySha256();
-
-        //then
-        assertThat(encryptPassword).isEqualTo(secondEncryptPassword);
-    }
-
-    private String encryptPasswordBySha256() {
-        return passwordEncoder.encryptPassword(TEST_PASSWORD, new Sha256());
     }
 }
