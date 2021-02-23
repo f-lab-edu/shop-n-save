@@ -2,11 +2,13 @@ package com.flab.demo.service;
 
 import com.flab.demo.exception.NotAuthenticationException;
 import com.flab.demo.mapper.UserMapper;
+import com.flab.demo.security.PasswordEncoder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static com.flab.demo.fixture.UserFixture.*;
@@ -24,6 +26,9 @@ class UserServiceTest {
 
     @Mock
     private UserMapper userMapper;
+
+    @Spy
+    private PasswordEncoder passwordEncoder;
 
     @Test
     @DisplayName("사용자 회원가입 시 존재하는 email 인 상황일 때 IllegalArgumentException 예외가 발생한다.")
@@ -67,7 +72,7 @@ class UserServiceTest {
     void login() {
         when(userMapper.findByEmailAndPassword(any())).thenReturn(TEST_USER);
 
-        userService.login(LOGIN_USER_REQUEST_DTO);
+        userService.findByEmailAndPassword(LOGIN_USER_REQUEST_DTO);
 
         verify(userMapper).findByEmailAndPassword(any());
     }
@@ -78,9 +83,9 @@ class UserServiceTest {
         when(userMapper.findByEmailAndPassword(any())).thenReturn(null);
 
         String errorMessage = assertThrows(NotAuthenticationException.class,
-                () -> userService.login(LOGIN_USER_REQUEST_DTO)
+                () -> userService.findByEmailAndPassword(LOGIN_USER_REQUEST_DTO)
         ).getMessage();
 
-        assertThat(errorMessage).isEqualTo("로그인 사용자 정보가 올바르지 않습니다.");
+        assertThat(errorMessage).isEqualTo("사용자 정보가 존재하지 않습니다.");
     }
 }
