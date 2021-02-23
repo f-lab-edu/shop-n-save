@@ -9,7 +9,7 @@ import static com.flab.demo.security.HttpSessionUtil.LOGIN_USER_ID_SESSION_KEY;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class HttpSessionUtilTest {
-    private AuthenticationService httpSessionUtil;
+    private Authentication httpSessionUtil;
 
     @BeforeEach
     void setUp() {
