@@ -27,10 +27,4 @@ public class UserFixture {
             .email(TEST_EMAIL)
             .password(TEST_PASSWORD)
             .build();
-
-    public static final User USER_WITH_ENCRYPT = User.builder()
-            .email(TEST_EMAIL)
-            .password(TEST_HASH_PASSWORD)
-            .name(TEST_NAME)
-            .build();
 }
