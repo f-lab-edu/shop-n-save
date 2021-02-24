@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @NoArgsConstructor
 public class CreateUserRequestDto {
+    
     @Email
     @NotBlank(message = "이메일은 필수값입니다.")
     private String email;

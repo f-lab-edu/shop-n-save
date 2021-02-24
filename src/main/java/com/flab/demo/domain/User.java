@@ -10,6 +10,7 @@ import javax.validation.constraints.Email;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class User {
+
     private Long id;
 
     @Email
