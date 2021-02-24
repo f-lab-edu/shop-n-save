@@ -5,14 +5,14 @@ import org.springframework.stereotype.Component;
 import static com.flab.demo.security.Sha256.SHA_256;
 
 @Component
-public class PasswordEncoder {
+public class PasswordEncoder implements Encoder {
 
     public String encryptPasswordBySha256(String password) {
-        return encryptPassword(password, new Sha256());
+        return encrypt(password, new Sha256());
     }
 
-    public String encryptPassword(String password, Cryptographic cryptographic) {
-        return cryptographic.digest(password, SHA_256);
+    @Override
+    public String encrypt(String value, Cryptographic cryptographic) {
+        return cryptographic.digest(value, SHA_256);
     }
-
 }
