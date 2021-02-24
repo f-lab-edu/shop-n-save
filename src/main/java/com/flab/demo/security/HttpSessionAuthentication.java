@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpSession;
 
 @Component
-public class HttpSessionUtil implements Authentication {
+public class HttpSessionAuthentication implements Authentication {
     static final String LOGIN_USER_ID_SESSION_KEY = "loginUserId";
 
     @Override
