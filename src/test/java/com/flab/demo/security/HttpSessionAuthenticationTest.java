@@ -5,15 +5,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpSession;
 
-import static com.flab.demo.security.HttpSessionUtil.LOGIN_USER_ID_SESSION_KEY;
+import static com.flab.demo.security.HttpSessionAuthentication.LOGIN_USER_ID_SESSION_KEY;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class HttpSessionUtilTest {
-    private Authentication httpSessionUtil;
+class HttpSessionAuthenticationTest {
+    private Authentication httpSessionAuthentication;
 
     @BeforeEach
     void setUp() {
-        httpSessionUtil = new HttpSessionUtil();
+        httpSessionAuthentication = new HttpSessionAuthentication();
     }
 
     @Test
@@ -24,7 +24,7 @@ class HttpSessionUtilTest {
         MockHttpSession request = new MockHttpSession();
 
         //when
-        httpSessionUtil.login(request, loginUserId);
+        httpSessionAuthentication.login(request, loginUserId);
 
         //then
         assertThat(request.getAttribute(LOGIN_USER_ID_SESSION_KEY)).isEqualTo(loginUserId);

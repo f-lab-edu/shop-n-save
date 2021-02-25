@@ -7,7 +7,7 @@ import static com.flab.demo.fixture.UserFixture.TEST_PASSWORD;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PasswordEncoderTest {
-    private PasswordEncoder passwordEncoder;
+    private Encoder passwordEncoder;
 
     @BeforeEach
     void setUp() {
@@ -17,7 +17,7 @@ class PasswordEncoderTest {
     @Test
     void encryptPassword_test() {
         //when
-        String encryptPassword = passwordEncoder.encryptPassword(TEST_PASSWORD, new Sha256());
+        String encryptPassword = passwordEncoder.encrypt(TEST_PASSWORD, new Sha256());
 
         //then
         assertThat(encryptPassword).isNotEqualTo(TEST_PASSWORD);
