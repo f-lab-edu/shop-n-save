@@ -18,12 +18,12 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/members")
-    public ResponseEntity<Member> create(@Valid @RequestBody Member member) {
-        return new ResponseEntity<Member>(memberService.create(member), HttpStatus.OK);
+    public Member create(@Valid @RequestBody Member member) {
+        return memberService.create(member);
     }
 
     @GetMapping("/members/{id}")
-    public ResponseEntity<Member> getById(@PathVariable("id") String id) {
-        return new ResponseEntity<Member>(memberService.getById(id), HttpStatus.OK);
+    public Member getById(@PathVariable("id") String id) {
+        return memberService.getById(id);
     }
 }
