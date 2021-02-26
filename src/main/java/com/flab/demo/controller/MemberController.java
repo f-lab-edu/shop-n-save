@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @RestController
@@ -25,5 +26,10 @@ public class MemberController {
     @GetMapping("/members/{id}")
     public Member getById(@PathVariable("id") String id) {
         return memberService.getById(id);
+    }
+
+    @PostMapping("/members/login")
+    public void login(@Valid @RequestBody Member member, HttpSession session) {
+        memberService.login(member, session);
     }
 }
