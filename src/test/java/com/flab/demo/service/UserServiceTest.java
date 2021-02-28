@@ -2,7 +2,7 @@ package com.flab.demo.service;
 
 import com.flab.demo.exception.NotAuthenticationException;
 import com.flab.demo.mapper.UserMapper;
-import com.flab.demo.security.PasswordEncoder;
+import com.flab.demo.security.Sha256Encryptor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +28,7 @@ class UserServiceTest {
     private UserMapper userMapper;
 
     @Spy
-    private PasswordEncoder passwordEncoder;
+    private Sha256Encryptor sha256Encryptor;
 
     @Test
     @DisplayName("사용자 회원가입 시 존재하는 email 인 상황일 때 IllegalArgumentException 예외가 발생한다.")

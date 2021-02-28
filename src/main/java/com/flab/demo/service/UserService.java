@@ -5,7 +5,7 @@ import com.flab.demo.dto.CreateUserRequestDto;
 import com.flab.demo.dto.LoginUserRequestDto;
 import com.flab.demo.exception.NotAuthenticationException;
 import com.flab.demo.mapper.UserMapper;
-import com.flab.demo.security.PasswordEncoder;
+import com.flab.demo.security.Sha256Encryptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserMapper userMapper;
-    private final PasswordEncoder passwordEncoder;
+    private final Sha256Encryptor sha256Encryptor;
 
     public void save(CreateUserRequestDto user) {
         User registerUser = userMapper.findByEmail(user.getEmail());
@@ -23,7 +23,7 @@ public class UserService {
             throw new IllegalArgumentException("등록된 사용자입니다.");
         }
 
-        String encodedPassword = passwordEncoder.encryptPasswordBySha256(user.getPassword());
+        String encodedPassword = sha256Encryptor.encryptPasswordBySha256(user.getPassword());
 
         int addCount = userMapper.save(user.toEntity(encodedPassword));
 
@@ -33,7 +33,7 @@ public class UserService {
     }
 
     public Long findByEmailAndPassword(LoginUserRequestDto user) {
-        String encodedPassword = passwordEncoder.encryptPasswordBySha256(user.getPassword());
+        String encodedPassword = sha256Encryptor.encryptPasswordBySha256(user.getPassword());
 
         User registerUser = userMapper.findByEmailAndPassword(user.toDto(encodedPassword));
 
