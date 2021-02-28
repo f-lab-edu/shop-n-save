@@ -2,7 +2,7 @@ package com.flab.demo.controller;
 
 import com.flab.demo.dto.CreateUserRequestDto;
 import com.flab.demo.dto.LoginUserRequestDto;
-import com.flab.demo.security.HttpSessionAuthentication;
+import com.flab.demo.security.Authentication;
 import com.flab.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ import static com.flab.demo.controller.ResponseEntityGroup.OK_RESPONSE_ENTITY;
 public class UserController {
 
     private final UserService userService;
-    private final HttpSessionAuthentication httpSessionAuthentication;
+    private final Authentication httpSessionAuthentication;
 
     @PostMapping
     public ResponseEntity create(@Valid @RequestBody CreateUserRequestDto user) {
