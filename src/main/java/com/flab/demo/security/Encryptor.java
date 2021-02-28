@@ -1,6 +1,6 @@
 package com.flab.demo.security;
 
-public interface Encoder {
+public interface Encryptor {
 
     String encrypt(String value, Cryptographic cryptographic);
 }
