@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static com.flab.demo.fixture.UserFixture.*;
@@ -15,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Sql(scripts = "/clean-all.sql")
 class UserMapperTest {
 
     @Autowired
@@ -42,5 +44,39 @@ class UserMapperTest {
         //then
         assertThat(findUser.getEmail()).isEqualTo(TEST_EMAIL);
         assertThat(findUser.getPassword()).isEqualTo(TEST_PASSWORD);
+    }
+
+    @Test
+    @DisplayName("로그인 시 email 과 password 로 사용자를 검색할 상황일 때 해당하는 User 를 리턴한다.")
+    void findByEmailAndPassword_test() {
+        //given
+        userMapper.save(TEST_USER);
+
+        //when
+        User findUser = userMapper.findByEmailAndPassword(LOGIN_USER_REQUEST_DTO);
+
+        //then
+        assertThat(findUser.getId()).isNotNull();
+        assertThat(findUser.getEmail()).isEqualTo(TEST_EMAIL);
+        assertThat(findUser.getPassword()).isEqualTo(TEST_PASSWORD);
+    }
+
+    @Test
+    @DisplayName("로그인 시 email 과 password 잘못된 정보인 상황일 때 아무것도 리턴하지 않는다.")
+    void findByEmailAndPassword_fail_test() {
+        //given
+        User anotherUser = User.builder()
+                .email(TEST_EMAIL)
+                .password("failPassword")
+                .name(TEST_NAME)
+                .build();
+
+        userMapper.save(anotherUser);
+
+        //when
+        User findUser = userMapper.findByEmailAndPassword(LOGIN_USER_REQUEST_DTO);
+
+        //then
+        assertThat(findUser).isNull();
     }
 }

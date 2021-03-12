@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @NoArgsConstructor
 public class CreateUserRequestDto {
+    
     @Email
     @NotBlank(message = "이메일은 필수값입니다.")
     private String email;
@@ -28,10 +29,10 @@ public class CreateUserRequestDto {
         this.name = name;
     }
 
-    public User toEntity(String encryptPassword) {
+    public User toEntity(String encodedPassword) {
         return User.builder()
                 .email(this.email)
-                .password(encryptPassword)
+                .password(encodedPassword)
                 .name(this.name)
                 .build();
     }

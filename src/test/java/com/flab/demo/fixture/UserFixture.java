@@ -2,6 +2,7 @@ package com.flab.demo.fixture;
 
 import com.flab.demo.domain.User;
 import com.flab.demo.dto.CreateUserRequestDto;
+import com.flab.demo.dto.LoginUserRequestDto;
 import com.flab.demo.security.Sha256;
 
 public class UserFixture {
@@ -16,13 +17,14 @@ public class UserFixture {
             .name(TEST_NAME)
             .build();
 
-    public static final User TEST_USER_WITH_HASH_PASSWORD = User.builder()
+    public static final CreateUserRequestDto CREATE_USER_REQUEST_DTO = CreateUserRequestDto.builder()
             .email(TEST_EMAIL)
-            .password(TEST_HASH_PASSWORD)
             .name(TEST_NAME)
+            .password(TEST_PASSWORD)
             .build();
 
-
-    public static final CreateUserRequestDto CREATE_USER_REQUEST_DTO
-            = new CreateUserRequestDto(TEST_EMAIL, TEST_NAME, TEST_PASSWORD);
+    public static final LoginUserRequestDto LOGIN_USER_REQUEST_DTO = LoginUserRequestDto.builder()
+            .email(TEST_EMAIL)
+            .password(TEST_PASSWORD)
+            .build();
 }

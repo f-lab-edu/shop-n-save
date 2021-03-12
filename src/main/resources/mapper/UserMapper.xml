@@ -30,4 +30,17 @@
         WHERE
             email = #{email}
     </select>
+
+    <select id="findByEmailAndPassword" parameterType="LoginUserRequestDto" resultType="User">
+        SELECT
+            id,
+            email,
+            password
+        FROM
+            user
+        WHERE
+            email = #{email}
+        AND
+            password = #{password}
+    </select>
 </mapper>
