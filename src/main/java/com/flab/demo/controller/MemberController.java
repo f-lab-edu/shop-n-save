@@ -2,10 +2,8 @@ package com.flab.demo.controller;
 
 import com.flab.demo.domain.Member;
 import com.flab.demo.service.MemberService;
-import lombok.AllArgsConstructor;
+import com.flab.demo.system.Authentification;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +15,7 @@ import javax.validation.Valid;
 public class MemberController {
 
     private final MemberService memberService;
+    private final Authentification authentification;
 
     @PostMapping("/members")
     public Member create(@Valid @RequestBody Member member) {
@@ -29,7 +28,7 @@ public class MemberController {
     }
 
     @PostMapping("/members/login")
-    public void login(@Valid @RequestBody Member member, HttpSession session) {
-        memberService.login(member, session);
+    public Member login(@Valid @RequestBody Member member, HttpSession session) {
+        return authentification.login(member, session);
     }
 }
