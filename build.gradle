@@ -31,6 +31,7 @@ dependencies {
 	compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-autoconfigure', version: '2.1.4'
 	compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.1.4'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.2'
+	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
 }
 
 test {

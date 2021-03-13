@@ -5,10 +5,10 @@ import com.flab.demo.exception.UserAuthenticationFailException;
 import com.flab.demo.mapper.MemberMapper;
 import com.flab.demo.session.SessionNames;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +35,8 @@ public class MemberService implements SessionNames {
         }
 
         Member foundMember = memberMapper.getByEmail(member.getEmail());
-        if(foundMember != null && foundMember.getPassword().equals(member.getPassword())) {
+
+        if(foundMember != null && StringUtils.equals(foundMember.getPassword(), member.getPassword())) {
             session.setAttribute(LOGIN, foundMember);
         }
         else {
