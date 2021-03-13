@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 public class HttpSessionAuthentification implements Authentification {
 
     private final MemberMapper memberMapper;
-    private static final String LOGIN = "loginUser";
+    public static final String LOGIN = "loginUser";
 
     @Override
     public Member login(Member member, HttpSession session) {
