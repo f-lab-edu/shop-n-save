@@ -26,8 +26,7 @@ public class HttpSessionAuthentification implements Authentification {
 
         if(foundMember != null && StringUtils.equals(foundMember.getPassword(), member.getPassword())) {
             session.setAttribute(LOGIN, foundMember);
-        }
-        else {
+        } else {
             throw new UserAuthenticationFailException("아이디가 존재하지 않거나 비밀번호가 틀립니다.");
         }
         return member;
