@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 @Component
 @RequiredArgsConstructor
-public class HttpSessionAuthentification implements Authentification {
+public class SessionAuthentification implements Authentification {
 
     private final MemberMapper memberMapper;
     public static final String LOGIN = "loginUser";
