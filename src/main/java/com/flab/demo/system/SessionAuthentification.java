@@ -17,7 +17,7 @@ public class SessionAuthentification implements Authentification {
     public static final String LOGIN = "loginUser";
 
     @Override
-    public Member login(Member member, HttpSession session) {
+    public void login(Member member, HttpSession session) {
         if(session.getAttribute(LOGIN) != null) {
             session.invalidate();
         }
@@ -29,6 +29,5 @@ public class SessionAuthentification implements Authentification {
         } else {
             throw new UserAuthenticationFailException("아이디가 존재하지 않거나 비밀번호가 틀립니다.");
         }
-        return member;
     }
 }

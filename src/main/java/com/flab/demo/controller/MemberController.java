@@ -28,7 +28,7 @@ public class MemberController {
     }
 
     @PostMapping("/members/login")
-    public Member login(@Valid @RequestBody Member member, HttpSession session) {
-        return authentification.login(member, session);
+    public void login(@Valid @RequestBody Member member, HttpSession session) {
+        authentification.login(member, session);
     }
 }
