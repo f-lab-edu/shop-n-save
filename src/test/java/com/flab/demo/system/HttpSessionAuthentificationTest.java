@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class HttpSessionAuthentificationTest {
 
     @Autowired
-    private HttpSessionAuthentification authentification;
+    private SessionAuthentification authentification;
 
     @Autowired
     private MemberService memberService;

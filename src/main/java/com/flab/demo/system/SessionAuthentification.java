@@ -25,7 +25,7 @@ public class SessionAuthentification implements Authentification {
         Member foundMember = memberMapper.getByEmail(member.getEmail());
 
         if(foundMember != null && StringUtils.equals(foundMember.getPassword(), member.getPassword())) {
-            session.setAttribute(LOGIN, foundMember);
+            session.setAttribute(LOGIN, foundMember.getEmail());
         } else {
             throw new UserAuthenticationFailException("아이디가 존재하지 않거나 비밀번호가 틀립니다.");
         }
