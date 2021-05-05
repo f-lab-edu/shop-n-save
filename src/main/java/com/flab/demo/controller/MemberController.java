@@ -4,7 +4,6 @@ import com.flab.demo.domain.Member;
 import com.flab.demo.service.MemberService;
 import com.flab.demo.system.Authentification;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -28,7 +27,7 @@ public class MemberController {
     }
 
     @PostMapping("/members/login")
-    public void login(@Valid @RequestBody Member member, HttpSession session) {
-        authentification.login(member, session);
+    public void login(@Valid @RequestBody Member member) {
+        authentification.login(member);
     }
 }

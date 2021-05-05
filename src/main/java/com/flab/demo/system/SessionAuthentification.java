@@ -13,11 +13,12 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class SessionAuthentification implements Authentification {
 
+    private final HttpSession session;
     private final MemberMapper memberMapper;
     public static final String LOGIN = "loginUser";
 
     @Override
-    public void login(Member member, HttpSession session) {
+    public void login(Member member) {
         if(session.getAttribute(LOGIN) != null) {
             session.invalidate();
         }
