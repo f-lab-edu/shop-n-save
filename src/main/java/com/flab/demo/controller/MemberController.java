@@ -17,7 +17,7 @@ public class MemberController {
     private final Authentification authentification;
 
     @PostMapping("/members")
-    public Member create(@Valid @RequestBody Member member) {
+    public Member join(@Valid @RequestBody Member member) {
         return memberService.create(member);
     }
 
