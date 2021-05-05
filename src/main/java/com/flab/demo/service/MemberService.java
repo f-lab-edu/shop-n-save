@@ -11,7 +11,7 @@ public class MemberService {
 
     private final MemberMapper memberMapper;
 
-    public Member create(Member member) {
+    public Member join(Member member) {
         if(memberMapper.getByEmail(member.getEmail()) != null) {
             throw new IllegalArgumentException("이미 존재하는 회원입니다.");
         }

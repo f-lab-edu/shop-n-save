@@ -6,7 +6,6 @@ import com.flab.demo.system.Authentification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @RestController
@@ -18,7 +17,7 @@ public class MemberController {
 
     @PostMapping("/members")
     public Member join(@Valid @RequestBody Member member) {
-        return memberService.create(member);
+        return memberService.join(member);
     }
 
     @GetMapping("/members/{id}")
