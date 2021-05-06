@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
-class MemberControllerTest {
+class MemberControllerIntegrationTest {
 
     private Member member;
 

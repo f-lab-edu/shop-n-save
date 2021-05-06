@@ -1,62 +1,55 @@
 package com.flab.demo.service;
 
 import com.flab.demo.domain.Member;
+import com.flab.demo.mapper.MemberMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
-@Transactional
+@ExtendWith(MockitoExtension.class)
 public class MemberServiceTest {
 
-    @Autowired
-    private MemberService memberService;
+    private Member member;
 
-    @Test
-    public void getByIdTest() {
-        Member findMember = memberService.getById("known_id");
-        assertNull(findMember);
-    }
-
-    @Test
-    public void 회원가입() {
-        // given
-        Member member = new Member().builder()
-                .email("test@abc")
+    @BeforeEach
+    public void setUp() {
+        member = new Member().builder()
+                .email("test1223@test")
                 .password("pw")
                 .name("testName")
                 .build();
+    }
 
-        // when
-        Member newMember = memberService.create(member);
+    @InjectMocks
+    private MemberService memberService;
+
+    @Mock
+    private MemberMapper memberMapper;
+
+    @Test
+    public void 정상_회원가입() {
+        when(memberMapper.getByEmail(member.getEmail())).thenReturn(null);
+        when(memberMapper.create(member)).thenReturn(1);
 
         // then
-        Member findMember = memberService.getById(newMember.getId().toString());
-        assertThat(member.getName()).isEqualTo(findMember.getName());
+        memberService.join(member);
+        verify(memberMapper, times(1)).create(member);
     }
 
     @Test
     public void 중복_회원_예외() {
         // given
-        Member member1 = new Member().builder()
-                .email("rewq@abc")
-                .password("pw")
-                .name("huimin")
-                .build();
-
-        Member member2 = new Member().builder()
-                .email("rewq@abc")
-                .password("pw")
-                .name("huimin")
-                .build();
+        when(memberMapper.getByEmail(member.getEmail())).thenReturn(member);
 
         // when
-        memberService.create(member1);
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> memberService.create(member2));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> memberService.join(member));
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
     }
 }
