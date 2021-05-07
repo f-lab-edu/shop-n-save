@@ -5,6 +5,7 @@ import com.flab.demo.domain.Member;
 import com.flab.demo.exception.UserAuthenticationFailException;
 import com.flab.demo.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -49,7 +50,8 @@ class HttpSessionAuthentificationTest {
     MockMvc mockMvc;
 
     @Test
-    public void 등록되지않은_사용자_로그인_예외() {
+    @DisplayName("등록되지 않은 Member 정보로 로그인을 시도하는 경우 UserAuthenticationFailException 예외가 발생한다")
+    public void unregistered_user_join() {
         // given
         Member member1 = new Member().builder()
                 .email("unknown@abc.aaa")
@@ -64,6 +66,7 @@ class HttpSessionAuthentificationTest {
     }
 
     @Test
+    @DisplayName("비밀번호 오입력하여 로그인을 시도하는 경우 UserAuthenticationFailException 예외가 발생한다")
     public void 비밀번호_오입력_사용자_로그인_예외() {
         // given
         Member member1 = new Member().builder()
@@ -88,7 +91,8 @@ class HttpSessionAuthentificationTest {
     }
 
     @Test
-    public void 정상_사용자_로그인() throws Exception {
+    @DisplayName("올바른 정보의 아이디와 비밀번호로 로그인을 시도하는 경우 응답 헤더에 set-cookie 속성이 셋팅된다")
+    public void join() throws Exception {
         // given
         memberService.join(member);
 

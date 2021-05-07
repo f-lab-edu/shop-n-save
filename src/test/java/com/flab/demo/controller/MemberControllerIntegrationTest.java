@@ -3,6 +3,7 @@ package com.flab.demo.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.demo.domain.Member;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -36,7 +37,8 @@ class MemberControllerIntegrationTest {
     MockMvc mockMvc;
 
     @Test
-    public void 정상_사용자_회원가입() throws Exception {
+    @DisplayName("올바른 형태의 email 과 password 를 입력받은 경우 Member 테이블에 저장하고 member 객체를 반환한다")
+    public void join() throws Exception {
         // given
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonString = objectMapper.writeValueAsString(member);
@@ -56,7 +58,8 @@ class MemberControllerIntegrationTest {
     }
 
     @Test
-    public void 중복_회원_예외() throws Exception {
+    @DisplayName("이미 가입된 이메일로 회원가입을 시도하는 경우 400 상태코드를 응답받는다")
+    public void duplicated_email_join() throws Exception {
         // given
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonString = objectMapper.writeValueAsString(member);
@@ -77,7 +80,8 @@ class MemberControllerIntegrationTest {
     }
 
     @Test
-    public void 잘못된_이메일_형식() throws Exception {
+    @DisplayName("올바르지 않은 이메일 형식을 입력하여 회원가입을 시도하는 경우 400 상태코드를 응답받는다")
+    public void invalid_email_join() throws Exception {
         // given
         Member member = new Member().builder()
                 .email("123")
