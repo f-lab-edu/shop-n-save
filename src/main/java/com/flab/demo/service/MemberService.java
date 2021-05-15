@@ -1,6 +1,8 @@
 package com.flab.demo.service;
 
 import com.flab.demo.domain.Member;
+import com.flab.demo.exception.ErrorCode;
+import com.flab.demo.exception.member.DuplicatedMemberException;
 import com.flab.demo.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,7 @@ public class MemberService {
 
     public Member join(Member member) {
         if(memberMapper.getByEmail(member.getEmail()) != null) {
-            throw new IllegalArgumentException("이미 존재하는 회원입니다.");
+            throw new DuplicatedMemberException(ErrorCode.EMAIL_DUPLICATION);
         }
 
         memberMapper.create(member);
