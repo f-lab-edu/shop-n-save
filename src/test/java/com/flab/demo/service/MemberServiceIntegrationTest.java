@@ -1,8 +1,7 @@
 package com.flab.demo.service;
 
 import com.flab.demo.domain.Member;
-import com.flab.demo.service.MemberService;
-import org.junit.jupiter.api.BeforeEach;
+import com.flab.demo.exception.member.DuplicatedMemberException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +62,7 @@ public class MemberServiceIntegrationTest {
         memberService.join(member1);
 
         // then
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> memberService.join(member2));
-        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
+        DuplicatedMemberException e = assertThrows(DuplicatedMemberException.class, () -> memberService.join(member2));
+        assertThat(e.getErrorCode().getMessage()).isEqualTo("이미 존재하는 회원입니다.");
     }
 }

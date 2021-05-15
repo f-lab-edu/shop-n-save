@@ -2,7 +2,7 @@ package com.flab.demo.system;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.demo.domain.Member;
-import com.flab.demo.exception.UserAuthenticationFailException;
+import com.flab.demo.exception.member.UserAuthenticationFailException;
 import com.flab.demo.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -62,7 +62,7 @@ class HttpSessionAuthentificationTest {
         UserAuthenticationFailException e = assertThrows(UserAuthenticationFailException.class, () -> authentification.login(member1));
 
         // then
-        assertThat(e.getMessage()).isEqualTo("아이디가 존재하지 않거나 비밀번호가 틀립니다.");
+        assertThat(e.getErrorCode().getMessage()).isEqualTo("아이디가 존재하지 않거나 비밀번호가 틀립니다.");
     }
 
     @Test
@@ -87,7 +87,7 @@ class HttpSessionAuthentificationTest {
         UserAuthenticationFailException e = assertThrows(UserAuthenticationFailException.class, () -> authentification.login(member2));
 
         // then
-        assertThat(e.getMessage()).isEqualTo("아이디가 존재하지 않거나 비밀번호가 틀립니다.");
+        assertThat(e.getErrorCode().getMessage()).isEqualTo("아이디가 존재하지 않거나 비밀번호가 틀립니다.");
     }
 
     @Test

@@ -1,6 +1,7 @@
 package com.flab.demo.service;
 
 import com.flab.demo.domain.Member;
+import com.flab.demo.exception.member.DuplicatedMemberException;
 import com.flab.demo.mapper.MemberMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -52,7 +53,7 @@ public class MemberServiceTest {
         when(memberMapper.getByEmail(member.getEmail())).thenReturn(member);
 
         // when
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> memberService.join(member));
-        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
+        DuplicatedMemberException e = assertThrows(DuplicatedMemberException.class, () -> memberService.join(member));
+        assertThat(e.getErrorCode().getMessage()).isEqualTo("이미 존재하는 회원입니다.");
     }
 }
