@@ -1,5 +1,6 @@
-package com.flab.demo.domain;
+package com.flab.demo.dto;
 
+import com.flab.demo.domain.Member;
 import lombok.*;
 
 import javax.validation.constraints.Email;
@@ -11,8 +12,6 @@ import javax.validation.constraints.NotBlank;
 @Builder
 public class CreateMemberRequestDto {
 
-    private Long id;
-
     @NotBlank(message = "이메일은 빈 값일 수 없습니다")
     @Email(message = "올바른 형식의 이메일 주소어야 합니다")
     private String email;
@@ -22,4 +21,13 @@ public class CreateMemberRequestDto {
 
     @NotBlank(message = "이름은 빈 값일 수 없습니다")
     private String name;
+    
+    public Member toEntity() {
+        Member member = Member.builder()
+                .email(this.email)
+                .password(this.password)
+                .name(this.name)
+                .build();
+        return member;
+    }
 }
