@@ -1,5 +1,6 @@
 package com.flab.demo.service;
 
+import com.flab.demo.domain.Member;
 import com.flab.demo.dto.CreateMemberRequestDto;
 import com.flab.demo.exception.member.DuplicatedMemberException;
 import org.junit.jupiter.api.DisplayName;
@@ -13,15 +14,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-public class CreateMemberRequestDtoServiceIntegrationTest {
+public class MemberServiceIntegrationTest {
 
     @Autowired
     private MemberService memberService;
 
     @Test
     public void getByIdTest() {
-        CreateMemberRequestDto findCreateMemberRequestDto = memberService.getById("unknown_id");
-        assertNull(findCreateMemberRequestDto);
+        Member foundMember = memberService.getById("unknown_id");
+        assertNull(foundMember);
     }
 
     @Test
@@ -35,11 +36,11 @@ public class CreateMemberRequestDtoServiceIntegrationTest {
                 .build();
 
         // when
-        CreateMemberRequestDto newCreateMemberRequestDto = memberService.join(createMemberRequestDto);
+        Member newMember = memberService.join(createMemberRequestDto);
 
         // then
-        CreateMemberRequestDto findCreateMemberRequestDto = memberService.getById(newCreateMemberRequestDto.getId().toString());
-        assertThat(createMemberRequestDto.getName()).isEqualTo(findCreateMemberRequestDto.getName());
+        Member foundMember = memberService.getById(newMember.getId().toString());
+        assertThat(createMemberRequestDto.getName()).isEqualTo(foundMember.getName());
     }
 
     @Test
@@ -63,6 +64,6 @@ public class CreateMemberRequestDtoServiceIntegrationTest {
 
         // then
         DuplicatedMemberException e = assertThrows(DuplicatedMemberException.class, () -> memberService.join(createMemberRequestDto2));
-        assertThat(e.getErrorCode().getMessage()).isEqualTo("이미 존재하는 회원입니다.");
+        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
     }
 }

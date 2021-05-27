@@ -1,5 +1,6 @@
 package com.flab.demo.service;
 
+import com.flab.demo.domain.Member;
 import com.flab.demo.dto.CreateMemberRequestDto;
 import com.flab.demo.exception.member.DuplicatedMemberException;
 import com.flab.demo.mapper.MemberMapper;
@@ -11,12 +12,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateMemberRequestDtoServiceTest {
+public class MemberServiceTest {
 
     private CreateMemberRequestDto createMemberRequestDto;
 
@@ -29,31 +33,33 @@ public class CreateMemberRequestDtoServiceTest {
                 .build();
     }
 
-    @InjectMocks
-    private MemberService memberService;
-
     @Mock
     private MemberMapper memberMapper;
+
+    @InjectMocks
+    private MemberService memberService;
 
     @Test
     @DisplayName("올바른 형태의 email 과 password 를 입력받은 경우 Member 테이블에 저장한다")
     public void join() {
-        when(memberMapper.getByEmail(createMemberRequestDto.getEmail())).thenReturn(null);
-        when(memberMapper.create(createMemberRequestDto)).thenReturn(1);
+        // given
+        // when(memberMapper.getByEmail(createMemberRequestDto.getEmail())).thenReturn(member);
+        // when(memberMapper.create(member, new Timestamp(new Date().getTime()))).thenReturn(1);
+
+        // when
+        memberService.join(createMemberRequestDto);
 
         // then
-        memberService.join(createMemberRequestDto);
-        verify(memberMapper, times(1)).create(createMemberRequestDto);
+        verify(memberMapper).getByEmail(createMemberRequestDto.getEmail());
+        verify(memberMapper).create(any(Member.class), any(Timestamp.class));
     }
 
     @Test
-    @DisplayName("이미 가입된 이메일로 회원가입을 시도하는 경우 IllegalArgumentException이 발생한다")
+    @DisplayName("이미 가입된 이메일로 회원가입을 시도하는 경우 DuplicatedMemberException이 발생한다")
     public void duplicated_email_join() {
         // given
-        when(memberMapper.getByEmail(createMemberRequestDto.getEmail())).thenReturn(createMemberRequestDto);
-
-        // when
+        when(memberMapper.getByEmail(createMemberRequestDto.getEmail())).thenReturn(any(Member.class));
         DuplicatedMemberException e = assertThrows(DuplicatedMemberException.class, () -> memberService.join(createMemberRequestDto));
-        assertThat(e.getErrorCode().getMessage()).isEqualTo("이미 존재하는 회원입니다.");
+        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
     }
 }
