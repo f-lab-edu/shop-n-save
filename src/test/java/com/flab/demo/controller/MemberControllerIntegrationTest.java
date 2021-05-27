@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
-class CreateMemberRequestDtoControllerIntegrationTest {
+class MemberControllerIntegrationTest {
 
     private CreateMemberRequestDto createMemberRequestDto;
 

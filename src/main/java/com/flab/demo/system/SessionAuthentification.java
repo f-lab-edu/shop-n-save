@@ -1,7 +1,7 @@
 package com.flab.demo.system;
 
 import com.flab.demo.domain.Member;
-import com.flab.demo.exception.ErrorCode;
+import com.flab.demo.dto.CreateMemberRequestDto;
 import com.flab.demo.exception.member.UserAuthenticationFailException;
 import com.flab.demo.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
@@ -19,17 +19,17 @@ public class SessionAuthentification implements Authentification {
     public static final String LOGIN = "loginUser";
 
     @Override
-    public void login(Member member) {
+    public void login(CreateMemberRequestDto createMemberRequestDto) {
         if(session.getAttribute(LOGIN) != null) {
             session.invalidate();
         }
 
-        Member foundMember = memberMapper.getByEmail(member.getEmail());
+        Member foundMember = memberMapper.getByEmail(createMemberRequestDto.getEmail());
 
-        if(foundMember != null && StringUtils.equals(foundMember.getPassword(), member.getPassword())) {
+        if(foundMember != null && StringUtils.equals(createMemberRequestDto.getPassword(), foundMember.getPassword())) {
             session.setAttribute(LOGIN, foundMember.getEmail());
         } else {
-            throw new UserAuthenticationFailException(ErrorCode.LOGIN_INPUT_INVALID);
+            throw new UserAuthenticationFailException();
         }
     }
 }

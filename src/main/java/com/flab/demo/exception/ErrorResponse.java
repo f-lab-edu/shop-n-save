@@ -13,27 +13,14 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class ErrorResponse {
 
-    private String code;
-    private String message;
     private List<ErrorField> errors;
 
-    public ErrorResponse(ErrorCode code, List<ErrorField> errors) {
-        this.code = code.getCode();
-        this.message = code.getMessage();
+    public ErrorResponse(List<ErrorField> errors) {
         this.errors = errors;
     }
 
-    public ErrorResponse(ErrorCode code) {
-        this.code = code.getCode();
-        this.message = code.getMessage();
-    }
-
-    public static ErrorResponse of(ErrorCode code, BindingResult bindingResult) {
-        return new ErrorResponse(code, ErrorField.of(bindingResult));
-    }
-
-    public static ErrorResponse of(ErrorCode code) {
-        return new ErrorResponse(code);
+    public static ErrorResponse of(BindingResult bindingResult) {
+        return new ErrorResponse(ErrorField.of(bindingResult));
     }
 
     @Getter

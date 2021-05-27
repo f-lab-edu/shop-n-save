@@ -1,6 +1,7 @@
 package com.flab.demo.controller;
 
 import com.flab.demo.domain.Member;
+import com.flab.demo.dto.CreateMemberRequestDto;
 import com.flab.demo.service.MemberService;
 import com.flab.demo.system.Authentification;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,8 @@ public class MemberController {
     private final Authentification authentification;
 
     @PostMapping("/members")
-    public Member join(@Valid @RequestBody Member member) {
-        return memberService.join(member);
+    public void join(@Valid @RequestBody CreateMemberRequestDto createMemberRequestDto) {
+        memberService.join(createMemberRequestDto);
     }
 
     @GetMapping("/members/{id}")
@@ -26,7 +27,7 @@ public class MemberController {
     }
 
     @PostMapping("/members/login")
-    public void login(@Valid @RequestBody Member member) {
-        authentification.login(member);
+    public void login(@Valid @RequestBody CreateMemberRequestDto createMemberRequestDto) {
+        authentification.login(createMemberRequestDto);
     }
 }

@@ -1,7 +1,7 @@
 package com.flab.demo.system;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flab.demo.domain.Member;
+import com.flab.demo.dto.CreateMemberRequestDto;
 import com.flab.demo.exception.member.UserAuthenticationFailException;
 import com.flab.demo.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,11 +26,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class HttpSessionAuthentificationTest {
 
-    private Member member;
+    private CreateMemberRequestDto createMemberRequestDto;
 
     @BeforeEach
     public void setUp() {
-        member = new Member().builder()
+        createMemberRequestDto = new CreateMemberRequestDto().builder()
                 .email("test1223@test")
                 .password("pw")
                 .name("testName")
@@ -53,50 +53,51 @@ class HttpSessionAuthentificationTest {
     @DisplayName("등록되지 않은 Member 정보로 로그인을 시도하는 경우 UserAuthenticationFailException 예외가 발생한다")
     public void unregistered_user_join() {
         // given
-        Member member1 = new Member().builder()
+        CreateMemberRequestDto createMemberRequestDto1 = new CreateMemberRequestDto().builder()
                 .email("unknown@abc.aaa")
                 .password("1234")
                 .name("mina")
                 .build();
+
         // when
-        UserAuthenticationFailException e = assertThrows(UserAuthenticationFailException.class, () -> authentification.login(member1));
+        UserAuthenticationFailException e = assertThrows(UserAuthenticationFailException.class, () -> authentification.login(createMemberRequestDto1));
 
         // then
-        assertThat(e.getErrorCode().getMessage()).isEqualTo("아이디가 존재하지 않거나 비밀번호가 틀립니다.");
+        assertThat(e.getMessage()).isEqualTo("아이디가 존재하지 않거나 비밀번호가 틀립니다.");
     }
 
     @Test
     @DisplayName("비밀번호 오입력하여 로그인을 시도하는 경우 UserAuthenticationFailException 예외가 발생한다")
     public void 비밀번호_오입력_사용자_로그인_예외() {
         // given
-        Member member1 = new Member().builder()
+        CreateMemberRequestDto createMemberRequestDto1 = new CreateMemberRequestDto().builder()
                 .email("test1243@abc")
                 .password("1234")
                 .name("mina")
                 .build();
 
-        Member member2 = new Member().builder()
+        CreateMemberRequestDto createMemberRequestDto2 = new CreateMemberRequestDto().builder()
                 .email("test1243@abc")
                 .password("4321")
                 .name("mina")
                 .build();
 
-        memberService.join(member1);
+        memberService.join(createMemberRequestDto1);
 
         // when
-        UserAuthenticationFailException e = assertThrows(UserAuthenticationFailException.class, () -> authentification.login(member2));
+        UserAuthenticationFailException e = assertThrows(UserAuthenticationFailException.class, () -> authentification.login(createMemberRequestDto2));
 
         // then
-        assertThat(e.getErrorCode().getMessage()).isEqualTo("아이디가 존재하지 않거나 비밀번호가 틀립니다.");
+        assertThat(e.getMessage()).isEqualTo("아이디가 존재하지 않거나 비밀번호가 틀립니다.");
     }
 
     @Test
     @DisplayName("올바른 정보의 아이디와 비밀번호로 로그인을 시도하는 경우 응답 헤더에 set-cookie 속성이 셋팅된다")
     public void join() throws Exception {
         // given
-        memberService.join(member);
+        memberService.join(createMemberRequestDto);
 
-        String jsonString = objectMapper.writeValueAsString(member);
+        String jsonString = objectMapper.writeValueAsString(createMemberRequestDto);
 
         // when
         mockMvc.perform(post("/members/login")

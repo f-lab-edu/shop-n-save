@@ -1,13 +1,15 @@
 package com.flab.demo.exception;
 
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Getter
 public class BusinessException extends RuntimeException {
 
-    private ErrorCode errorCode;
+    public final HttpStatus statusCode;
 
-    public BusinessException(ErrorCode errorCode) {
-        this.errorCode = errorCode;
+    public BusinessException(String message, HttpStatus statusCode) {
+        super(message);
+        this.statusCode = statusCode;
     }
 }
