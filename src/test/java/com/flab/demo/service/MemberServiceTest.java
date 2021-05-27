@@ -1,6 +1,6 @@
 package com.flab.demo.service;
 
-import com.flab.demo.domain.Member;
+import com.flab.demo.dto.CreateMemberRequestDto;
 import com.flab.demo.exception.member.DuplicatedMemberException;
 import com.flab.demo.mapper.MemberMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,13 +16,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class MemberServiceTest {
+public class CreateMemberRequestDtoServiceTest {
 
-    private Member member;
+    private CreateMemberRequestDto createMemberRequestDto;
 
     @BeforeEach
     public void setUp() {
-        member = new Member().builder()
+        createMemberRequestDto = new CreateMemberRequestDto().builder()
                 .email("test1223@test")
                 .password("pw")
                 .name("testName")
@@ -38,22 +38,22 @@ public class MemberServiceTest {
     @Test
     @DisplayName("올바른 형태의 email 과 password 를 입력받은 경우 Member 테이블에 저장한다")
     public void join() {
-        when(memberMapper.getByEmail(member.getEmail())).thenReturn(null);
-        when(memberMapper.create(member)).thenReturn(1);
+        when(memberMapper.getByEmail(createMemberRequestDto.getEmail())).thenReturn(null);
+        when(memberMapper.create(createMemberRequestDto)).thenReturn(1);
 
         // then
-        memberService.join(member);
-        verify(memberMapper, times(1)).create(member);
+        memberService.join(createMemberRequestDto);
+        verify(memberMapper, times(1)).create(createMemberRequestDto);
     }
 
     @Test
     @DisplayName("이미 가입된 이메일로 회원가입을 시도하는 경우 IllegalArgumentException이 발생한다")
     public void duplicated_email_join() {
         // given
-        when(memberMapper.getByEmail(member.getEmail())).thenReturn(member);
+        when(memberMapper.getByEmail(createMemberRequestDto.getEmail())).thenReturn(createMemberRequestDto);
 
         // when
-        DuplicatedMemberException e = assertThrows(DuplicatedMemberException.class, () -> memberService.join(member));
+        DuplicatedMemberException e = assertThrows(DuplicatedMemberException.class, () -> memberService.join(createMemberRequestDto));
         assertThat(e.getErrorCode().getMessage()).isEqualTo("이미 존재하는 회원입니다.");
     }
 }

@@ -1,7 +1,7 @@
 package com.flab.demo.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flab.demo.domain.Member;
+import com.flab.demo.dto.CreateMemberRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,13 +20,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
-class MemberControllerIntegrationTest {
+class CreateMemberRequestDtoControllerIntegrationTest {
 
-    private Member member;
+    private CreateMemberRequestDto createMemberRequestDto;
 
     @BeforeEach
     public void setUp() {
-        member = new Member().builder()
+        createMemberRequestDto = new CreateMemberRequestDto().builder()
                 .email("test1223@test")
                 .password("pw")
                 .name("testName")
@@ -41,7 +41,7 @@ class MemberControllerIntegrationTest {
     public void join() throws Exception {
         // given
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonString = objectMapper.writeValueAsString(member);
+        String jsonString = objectMapper.writeValueAsString(createMemberRequestDto);
 
         // when
         // then
@@ -51,9 +51,9 @@ class MemberControllerIntegrationTest {
                     .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.email").value(member.getEmail()))
-                .andExpect(jsonPath("$.password").value(member.getPassword()))
-                .andExpect(jsonPath("$.name").value(member.getName()));
+                .andExpect(jsonPath("$.email").value(createMemberRequestDto.getEmail()))
+                .andExpect(jsonPath("$.password").value(createMemberRequestDto.getPassword()))
+                .andExpect(jsonPath("$.name").value(createMemberRequestDto.getName()));
 
     }
 
@@ -62,7 +62,7 @@ class MemberControllerIntegrationTest {
     public void duplicated_email_join() throws Exception {
         // given
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonString = objectMapper.writeValueAsString(member);
+        String jsonString = objectMapper.writeValueAsString(createMemberRequestDto);
 
         mockMvc.perform(post("/members")
                 .content(jsonString)
@@ -83,14 +83,14 @@ class MemberControllerIntegrationTest {
     @DisplayName("올바르지 않은 이메일 형식을 입력하여 회원가입을 시도하는 경우 400 상태코드를 응답받는다")
     public void invalid_email_join() throws Exception {
         // given
-        Member member = new Member().builder()
+        CreateMemberRequestDto createMemberRequestDto = new CreateMemberRequestDto().builder()
                 .email("123")
                 .password("pw")
                 .name("testName")
                 .build();
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonString = objectMapper.writeValueAsString(member);
+        String jsonString = objectMapper.writeValueAsString(createMemberRequestDto);
 
         mockMvc.perform(post("/members")
                 .content(jsonString)
