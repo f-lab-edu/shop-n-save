@@ -1,62 +1,65 @@
 package com.flab.demo.service;
 
 import com.flab.demo.domain.Member;
+import com.flab.demo.dto.CreateMemberRequestDto;
+import com.flab.demo.exception.member.DuplicatedMemberException;
+import com.flab.demo.mapper.MemberMapper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
-@Transactional
+@ExtendWith(MockitoExtension.class)
 public class MemberServiceTest {
 
-    @Autowired
-    private MemberService memberService;
+    private CreateMemberRequestDto createMemberRequestDto;
 
-    @Test
-    public void getByIdTest() {
-        Member findMember = memberService.getById("known_id");
-        assertNull(findMember);
-    }
-
-    @Test
-    public void 회원가입() {
-        // given
-        Member member = new Member().builder()
-                .email("test@abc")
+    @BeforeEach
+    public void setUp() {
+        createMemberRequestDto = new CreateMemberRequestDto().builder()
+                .email("test1223@test")
                 .password("pw")
                 .name("testName")
                 .build();
+    }
+
+    @Mock
+    private MemberMapper memberMapper;
+
+    @InjectMocks
+    private MemberService memberService;
+
+    @Test
+    @DisplayName("올바른 형태의 email 과 password 를 입력받은 경우 Member 테이블에 저장한다")
+    public void join() {
+        // given
+        // when(memberMapper.getByEmail(createMemberRequestDto.getEmail())).thenReturn(member);
+        // when(memberMapper.create(member, new Timestamp(new Date().getTime()))).thenReturn(1);
 
         // when
-        Member newMember = memberService.create(member);
+        memberService.join(createMemberRequestDto);
 
         // then
-        Member findMember = memberService.getById(newMember.getId().toString());
-        assertThat(member.getName()).isEqualTo(findMember.getName());
+        verify(memberMapper).getByEmail(createMemberRequestDto.getEmail());
+        verify(memberMapper).create(any(Member.class), any(Timestamp.class));
     }
 
     @Test
-    public void 중복_회원_예외() {
+    @DisplayName("이미 가입된 이메일로 회원가입을 시도하는 경우 DuplicatedMemberException이 발생한다")
+    public void duplicated_email_join() {
         // given
-        Member member1 = new Member().builder()
-                .email("rewq@abc")
-                .password("pw")
-                .name("huimin")
-                .build();
-
-        Member member2 = new Member().builder()
-                .email("rewq@abc")
-                .password("pw")
-                .name("huimin")
-                .build();
-
-        // when
-        memberService.create(member1);
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> memberService.create(member2));
+        when(memberMapper.getByEmail(createMemberRequestDto.getEmail())).thenReturn(any(Member.class));
+        DuplicatedMemberException e = assertThrows(DuplicatedMemberException.class, () -> memberService.join(createMemberRequestDto));
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
     }
 }

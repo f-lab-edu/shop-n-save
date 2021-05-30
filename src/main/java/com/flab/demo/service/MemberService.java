@@ -1,11 +1,14 @@
 package com.flab.demo.service;
 
 import com.flab.demo.domain.Member;
+import com.flab.demo.dto.CreateMemberRequestDto;
+import com.flab.demo.exception.member.DuplicatedMemberException;
 import com.flab.demo.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -13,11 +16,12 @@ public class MemberService {
 
     private final MemberMapper memberMapper;
 
-    public Member create(Member member) {
-        if(memberMapper.getByEmail(member.getEmail()) != null) {
-            throw new IllegalArgumentException("이미 존재하는 회원입니다.");
+    public Member join(CreateMemberRequestDto createMemberRequestDto) {
+        if(memberMapper.getByEmail(createMemberRequestDto.getEmail()) != null) {
+            throw new DuplicatedMemberException();
         }
 
+        Member member = createMemberRequestDto.toEntity();
         memberMapper.create(member);
         return member;
     }

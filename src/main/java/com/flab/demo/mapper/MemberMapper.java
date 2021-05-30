@@ -1,9 +1,10 @@
 package com.flab.demo.mapper;
 
 import com.flab.demo.domain.Member;
+import com.flab.demo.dto.CreateMemberRequestDto;
 import org.apache.ibatis.annotations.*;
 
-import java.util.List;
+import java.sql.Timestamp;
 
 @Mapper
 public interface MemberMapper {

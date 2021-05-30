@@ -1,26 +1,17 @@
 package com.flab.demo.domain;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import java.sql.Timestamp;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@Getter
 public class Member {
 
     private Long id;
-
-    @NotBlank
-    @Email
     private String email;
-
-    @NotBlank
     private String password;
-
-    @NotBlank
     private String name;
+    private Timestamp createDate;
 }

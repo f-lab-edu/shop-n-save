@@ -1,12 +1,10 @@
 package com.flab.demo.controller;
 
 import com.flab.demo.domain.Member;
+import com.flab.demo.dto.CreateMemberRequestDto;
 import com.flab.demo.service.MemberService;
-import lombok.AllArgsConstructor;
+import com.flab.demo.system.Authentification;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,14 +14,20 @@ import javax.validation.Valid;
 public class MemberController {
 
     private final MemberService memberService;
+    private final Authentification authentification;
 
     @PostMapping("/members")
-    public Member create(@Valid @RequestBody Member member) {
-        return memberService.create(member);
+    public void join(@Valid @RequestBody CreateMemberRequestDto createMemberRequestDto) {
+        memberService.join(createMemberRequestDto);
     }
 
     @GetMapping("/members/{id}")
     public Member getById(@PathVariable("id") String id) {
         return memberService.getById(id);
+    }
+
+    @PostMapping("/members/login")
+    public void login(@Valid @RequestBody CreateMemberRequestDto createMemberRequestDto) {
+        authentification.login(createMemberRequestDto);
     }
 }
