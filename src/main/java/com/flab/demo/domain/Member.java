@@ -1,5 +1,6 @@
 package com.flab.demo.domain;
 
+import com.flab.demo.system.Role;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -14,4 +15,5 @@ public class Member {
     private String password;
     private String name;
     private Timestamp createDate;
+    private Role role;
 }

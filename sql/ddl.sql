@@ -4,5 +4,6 @@ create table MEMBER_INFO (
  password VARCHAR(64),
  name VARCHAR(30),
  create_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+ tinyint role DEFAULT 3,
  INDEX (email)
 )engine=InnoDB default character set = utf8;
