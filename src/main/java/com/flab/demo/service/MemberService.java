@@ -29,4 +29,6 @@ public class MemberService {
     public Member getById(String id) {
         return memberMapper.getById(id);
     }
+
+    public Member getByEmail(String email) { return memberMapper.getByEmail(email); }
 }
