@@ -5,4 +5,6 @@ import com.flab.demo.dto.CreateMemberRequestDto;
 public interface Authentification {
 
     public void login(CreateMemberRequestDto createMemberRequestDto);
+
+    public String getLoginMemberEmail();
 }
