@@ -1,8 +1,9 @@
 package com.flab.demo.system;
 
 import com.flab.demo.exception.member.UnknownRoleValueException;
+import org.apache.ibatis.type.MappedTypes;
 
-public enum Role {
+public enum Role implements CodeEnum {
 
     ADMIN(1), SELLER(2), BASIC_MEMBER(3);
 
@@ -12,16 +13,25 @@ public enum Role {
         this.value = value;
     }
 
-    public int intValue() {
+    @Override
+    public int getCode() {
         return value;
     }
 
     public static Role valueOf(int value) {
         switch(value) {
-            case 1 : return BASIC_MEMBER;
+            case 1 : return ADMIN;
             case 2 : return SELLER;
-            case 3 : return ADMIN;
+            case 3 : return BASIC_MEMBER;
             default : throw new UnknownRoleValueException(value);
+        }
+    }
+
+    @MappedTypes(Role.class)
+    public static class TypeHandler extends CodeEnumTypeHandler<Role> {
+
+        public TypeHandler() {
+            super(Role.class);
         }
     }
 }
