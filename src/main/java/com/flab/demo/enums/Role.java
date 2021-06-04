@@ -1,4 +1,4 @@
-package com.flab.demo.system;
+package com.flab.demo.enums;
 
 import com.flab.demo.exception.member.UnknownRoleValueException;
 import org.apache.ibatis.type.MappedTypes;

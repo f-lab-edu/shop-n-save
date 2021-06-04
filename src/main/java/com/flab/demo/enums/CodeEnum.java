@@ -1,4 +1,4 @@
-package com.flab.demo.system;
+package com.flab.demo.enums;
 
 public interface CodeEnum {
 

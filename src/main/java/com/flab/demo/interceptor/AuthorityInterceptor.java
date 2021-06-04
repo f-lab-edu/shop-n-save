@@ -6,7 +6,6 @@ import com.flab.demo.exception.member.UnknownRoleValueException;
 import com.flab.demo.exception.member.ImproperAuthorityException;
 import com.flab.demo.service.MemberService;
 import com.flab.demo.system.Authentification;
-import com.flab.demo.system.Authority;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -14,7 +13,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.flab.demo.system.Role.*;
+import static com.flab.demo.enums.Role.*;
 
 @RequiredArgsConstructor
 public class AuthorityInterceptor implements HandlerInterceptor {
@@ -44,7 +43,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
                 if(member.getRole() != ADMIN) throw new ImproperAuthorityException();
                 break;
             default:
-                throw new UnknownRoleValueException(auth.target().intValue());
+                throw new UnknownRoleValueException(auth.target().getCode());
         }
         return true;
     }

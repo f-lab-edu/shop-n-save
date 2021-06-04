@@ -1,6 +1,6 @@
 package com.flab.demo.domain;
 
-import com.flab.demo.system.Role;
+import com.flab.demo.enums.Role;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -1,5 +1,6 @@
-package com.flab.demo.system;
+package com.flab.demo.enums;
 
+import com.flab.demo.enums.CodeEnum;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 

@@ -1,4 +1,6 @@
-package com.flab.demo.system;
+package com.flab.demo.interceptor;
+
+import com.flab.demo.enums.Role;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
