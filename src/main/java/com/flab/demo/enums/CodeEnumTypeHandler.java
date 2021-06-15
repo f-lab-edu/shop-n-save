@@ -1,6 +1,7 @@
 package com.flab.demo.enums;
 
 import com.flab.demo.enums.CodeEnum;
+import com.flab.demo.exception.member.UnknownRoleValueException;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 
@@ -8,6 +9,8 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Optional;
 
 public class CodeEnumTypeHandler<E extends Enum<E>> implements TypeHandler<CodeEnum> {
 
@@ -44,12 +47,8 @@ public class CodeEnumTypeHandler<E extends Enum<E>> implements TypeHandler<CodeE
     }
 
     private CodeEnum getEnum(int code) {
-        CodeEnum[] enumConstants = (CodeEnum[])type.getEnumConstants();
-        for(CodeEnum anEnum : enumConstants) {
-            if(anEnum.getCode() == code) {
-                return anEnum;
-            }
-        }
-        return null;
+        Optional<CodeEnum> anyEnum = Arrays.stream((CodeEnum[]) type.getEnumConstants())
+                .filter(anEnum -> anEnum.getCode() == code).findAny();
+        return anyEnum.orElseThrow(() -> new UnknownRoleValueException(code));
     }
 }
