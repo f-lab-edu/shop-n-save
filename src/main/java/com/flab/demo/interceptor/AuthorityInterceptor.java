@@ -34,13 +34,9 @@ public class AuthorityInterceptor implements HandlerInterceptor {
         Member member = memberService.getByEmail(memberEmail);
 
         switch (auth.target()) {
-            case BASIC_MEMBER :
-                break;
             case SELLER :
-                if(member.getRole() != SELLER) throw new ImproperAuthorityException();
-                break;
             case ADMIN :
-                if(member.getRole() != ADMIN) throw new ImproperAuthorityException();
+                if(member.getRole() != auth.target()) throw new ImproperAuthorityException();
                 break;
             default:
                 throw new UnknownRoleValueException(auth.target().getCode());
