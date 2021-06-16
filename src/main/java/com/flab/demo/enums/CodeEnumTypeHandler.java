@@ -2,6 +2,7 @@ package com.flab.demo.enums;
 
 import com.flab.demo.enums.CodeEnum;
 import com.flab.demo.exception.member.UnknownRoleValueException;
+import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 
@@ -12,12 +13,10 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Optional;
 
+@NoArgsConstructor
 public class CodeEnumTypeHandler<E extends Enum<E>> implements TypeHandler<CodeEnum> {
 
     public Class<E> type;
-
-    public CodeEnumTypeHandler() {
-    }
 
     public CodeEnumTypeHandler(Class<E> type) {
         this.type = type;
