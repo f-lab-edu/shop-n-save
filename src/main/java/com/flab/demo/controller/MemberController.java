@@ -2,6 +2,7 @@ package com.flab.demo.controller;
 
 import com.flab.demo.domain.Member;
 import com.flab.demo.dto.CreateMemberRequestDto;
+import com.flab.demo.dto.LoginMemberRequestDto;
 import com.flab.demo.enums.Role;
 import com.flab.demo.interceptor.Authority;
 import com.flab.demo.service.MemberService;
@@ -33,7 +34,7 @@ public class MemberController {
     }
 
     @PostMapping("/members/login")
-    public void login(@Valid @RequestBody CreateMemberRequestDto createMemberRequestDto) {
-        authentification.login(createMemberRequestDto);
+    public void login(@Valid @RequestBody LoginMemberRequestDto loginMemberRequestDto) {
+        authentification.login(loginMemberRequestDto);
     }
 }
