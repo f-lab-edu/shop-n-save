@@ -1,4 +1,4 @@
-package com.flab.demo;
+package com.flab.demo.config;
 
 import com.flab.demo.interceptor.AuthorityInterceptor;
 import lombok.RequiredArgsConstructor;

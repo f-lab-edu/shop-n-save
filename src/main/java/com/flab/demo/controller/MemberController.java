@@ -2,6 +2,8 @@ package com.flab.demo.controller;
 
 import com.flab.demo.domain.Member;
 import com.flab.demo.dto.CreateMemberRequestDto;
+import com.flab.demo.enums.Role;
+import com.flab.demo.interceptor.Authority;
 import com.flab.demo.service.MemberService;
 import com.flab.demo.system.Authentification;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ public class MemberController {
         memberService.join(createMemberRequestDto);
     }
 
+    @Authority(target = {Role.ADMIN})
     @GetMapping("/members/{id}")
     public Member getById(@PathVariable("id") String id) {
         return memberService.getById(id);
