@@ -22,7 +22,7 @@ public enum Role implements CodeEnum {
         switch(value) {
             case 1 : return ADMIN;
             case 2 : return SELLER;
-            case 3 : return BASIC_MEMBER;
+            case 3 : return BASIC_MEMBER; // 로그인 한 모든 사용자
             default : throw new UnknownRoleValueException(value);
         }
     }
