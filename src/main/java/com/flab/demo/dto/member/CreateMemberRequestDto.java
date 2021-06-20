@@ -1,4 +1,4 @@
-package com.flab.demo.dto;
+package com.flab.demo.dto.member;
 
 import com.flab.demo.domain.Member;
 import lombok.*;
