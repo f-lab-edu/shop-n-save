@@ -57,8 +57,8 @@ public class CodeEnumTypeHandler<E extends CodeEnum> implements TypeHandler<Code
     }
 
     private CodeEnum getEnum(int code) {
-        Optional<CodeEnum> anyEnum = Arrays.stream((CodeEnum[]) type.getEnumConstants())
-                .filter(anEnum -> anEnum.getCode() == code).findAny();
-        return anyEnum.orElseThrow(() -> new UnnownEnumValueException(type.getSimpleName(), code));
+        return Arrays.stream((CodeEnum[]) type.getEnumConstants())
+                .filter(anEnum -> anEnum.getCode() == code).findAny()
+                .orElseThrow(() -> new UnnownEnumValueException(type.getSimpleName(), code));
     }
 }
