@@ -1,7 +1,7 @@
 package com.flab.demo.service;
 
 import com.flab.demo.domain.Member;
-import com.flab.demo.dto.CreateMemberRequestDto;
+import com.flab.demo.dto.member.CreateMemberRequestDto;
 import com.flab.demo.exception.member.DuplicatedMemberException;
 import com.flab.demo.mapper.MemberMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;

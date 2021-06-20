@@ -1,6 +1,6 @@
 package com.flab.demo.system;
 
-import com.flab.demo.dto.LoginMemberRequestDto;
+import com.flab.demo.dto.member.LoginMemberRequestDto;
 
 public interface Authentification {
 

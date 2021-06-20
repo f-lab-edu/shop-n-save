@@ -15,4 +15,7 @@ public interface MemberMapper {
 
     @Select("SELECT * FROM MEMBER_INFO WHERE email=#{email}")
     Member getByEmail(@Param("email") String email);
+
+    @Update("UPDATE MEMBER_INFO SET password = #{member.password}, name = #{member.name} WHERE id=#{id}")
+    void modifyById(@Param("id") String id, @Param("member") Member member);
 }

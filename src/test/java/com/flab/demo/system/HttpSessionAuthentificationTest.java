@@ -1,7 +1,7 @@
 package com.flab.demo.system;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flab.demo.dto.CreateMemberRequestDto;
+import com.flab.demo.dto.member.CreateMemberRequestDto;
 import com.flab.demo.exception.member.UserAuthenticationFailException;
 import com.flab.demo.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;

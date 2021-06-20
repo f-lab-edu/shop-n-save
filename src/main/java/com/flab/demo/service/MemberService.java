@@ -1,14 +1,12 @@
 package com.flab.demo.service;
 
 import com.flab.demo.domain.Member;
-import com.flab.demo.dto.CreateMemberRequestDto;
+import com.flab.demo.dto.member.CreateMemberRequestDto;
+import com.flab.demo.dto.member.ModifyMemberRequestDto;
 import com.flab.demo.exception.member.DuplicatedMemberException;
 import com.flab.demo.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.sql.Timestamp;
-import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -31,4 +29,8 @@ public class MemberService {
     }
 
     public Member getByEmail(String email) { return memberMapper.getByEmail(email); }
+
+    public void modifyMember(String id, ModifyMemberRequestDto modifyMemberRequestDto) {
+        memberMapper.modifyById(id, modifyMemberRequestDto.toEntity());
+    }
 }

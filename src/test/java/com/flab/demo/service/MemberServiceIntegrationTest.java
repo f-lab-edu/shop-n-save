@@ -1,7 +1,7 @@
 package com.flab.demo.service;
 
 import com.flab.demo.domain.Member;
-import com.flab.demo.dto.CreateMemberRequestDto;
+import com.flab.demo.dto.member.CreateMemberRequestDto;
 import com.flab.demo.exception.member.DuplicatedMemberException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,9 +1,11 @@
 package com.flab.demo.controller;
 
 import com.flab.demo.domain.Member;
-import com.flab.demo.dto.CreateMemberRequestDto;
-import com.flab.demo.dto.LoginMemberRequestDto;
+import com.flab.demo.dto.member.CreateMemberRequestDto;
+import com.flab.demo.dto.member.LoginMemberRequestDto;
+import com.flab.demo.dto.member.ModifyMemberRequestDto;
 import com.flab.demo.enums.Role;
+import com.flab.demo.exception.member.ForbiddenException;
 import com.flab.demo.interceptor.Authority;
 import com.flab.demo.service.MemberService;
 import com.flab.demo.system.Authentification;
@@ -36,5 +38,16 @@ public class MemberController {
     @PostMapping("/members/login")
     public void login(@Valid @RequestBody LoginMemberRequestDto loginMemberRequestDto) {
         authentification.login(loginMemberRequestDto);
+    }
+
+    @Authority(target = {Role.BASIC_MEMBER})
+    @PutMapping("/members/{id}")
+    public void modifyMember(@PathVariable("id") Long id, @Valid @RequestBody ModifyMemberRequestDto modifyMemberRequestDto) {
+        Member member = memberService.getByEmail(authentification.getLoginMemberEmail());
+
+        if(member.getRole() != Role.ADMIN && !member.getId().equals(id)) {
+            throw new ForbiddenException();
+        }
+        memberService.modifyMember(id.toString(), modifyMemberRequestDto);
     }
 }

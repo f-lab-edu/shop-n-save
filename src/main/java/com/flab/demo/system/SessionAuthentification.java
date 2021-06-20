@@ -1,8 +1,7 @@
 package com.flab.demo.system;
 
 import com.flab.demo.domain.Member;
-import com.flab.demo.dto.CreateMemberRequestDto;
-import com.flab.demo.dto.LoginMemberRequestDto;
+import com.flab.demo.dto.member.LoginMemberRequestDto;
 import com.flab.demo.exception.member.UserAuthenticationFailException;
 import com.flab.demo.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;

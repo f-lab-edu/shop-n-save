@@ -1,7 +1,7 @@
 package com.flab.demo.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flab.demo.dto.CreateMemberRequestDto;
+import com.flab.demo.dto.member.CreateMemberRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
