@@ -32,4 +32,9 @@ public class SessionAuthentification implements Authentification {
             throw new UserAuthenticationFailException();
         }
     }
+
+    @Override
+    public void logout() {
+        session.invalidate();
+    }
 }

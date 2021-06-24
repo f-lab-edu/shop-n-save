@@ -30,4 +30,9 @@ public class MemberController {
     public void login(@Valid @RequestBody CreateMemberRequestDto createMemberRequestDto) {
         authentification.login(createMemberRequestDto);
     }
+
+    @DeleteMapping("/members/logout")
+    public void logout() {
+        authentification.logout();
+    }
 }
