@@ -24,9 +24,9 @@ public class MemberController {
     private final Authentification authentification;
 
     @PostMapping("/members")
-    public ResponseEntity join(@Valid @RequestBody CreateMemberRequestDto createMemberRequestDto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void join(@Valid @RequestBody CreateMemberRequestDto createMemberRequestDto) {
         memberService.join(createMemberRequestDto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Authority(target = {Role.ADMIN})
