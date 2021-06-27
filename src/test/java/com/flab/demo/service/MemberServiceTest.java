@@ -1,4 +1,4 @@
-package com.flab.demo.member;
+package com.flab.demo.service;
 
 import com.flab.demo.domain.Member;
 import com.flab.demo.dto.member.CreateMemberRequestDto;
