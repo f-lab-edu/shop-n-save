@@ -44,7 +44,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
             - 로그인한 사용자라면 BASIC_MEMBER 권한이 필요한 API를 호출할 수 있습니다.
          */
         if(member.getRole() == Role.ADMIN) return true;
-        if(selfAuth != null) selfAuthenticationCheck(request, member);
+        if(selfAuth != null) selfAuthorizationCheck(request, member);
         if(ArrayUtils.contains(auth.target(), Role.BASIC_MEMBER)) return true;
 
         if(!ArrayUtils.contains(auth.target(), member.getRole())) {
@@ -54,7 +54,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    private void selfAuthenticationCheck(HttpServletRequest request, Member member) {
+    private void selfAuthorizationCheck(HttpServletRequest request, Member member) {
         Map pathVariables = (Map) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
         Long memberId = Long.valueOf((String) pathVariables.get("id"));
 

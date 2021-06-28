@@ -5,7 +5,6 @@ import com.flab.demo.dto.member.CreateMemberRequestDto;
 import com.flab.demo.dto.member.LoginMemberRequestDto;
 import com.flab.demo.dto.member.ModifyMemberRequestDto;
 import com.flab.demo.enums.Role;
-import com.flab.demo.exception.member.ForbiddenException;
 import com.flab.demo.interceptor.Authority;
 import com.flab.demo.interceptor.SelfAuthorization;
 import com.flab.demo.service.MemberService;
@@ -47,9 +46,6 @@ public class MemberController {
     public void modifyMember(@PathVariable("id") Long id, @Valid @RequestBody ModifyMemberRequestDto modifyMemberRequestDto) {
         Member member = memberService.getByEmail(authentification.getLoginMemberEmail());
 
-        if(member.getRole() != Role.ADMIN && !member.getId().equals(id)) {
-            throw new ForbiddenException();
-        }
         memberService.modifyMember(id.toString(), modifyMemberRequestDto);
     }
 }
