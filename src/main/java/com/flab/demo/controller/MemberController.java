@@ -44,8 +44,6 @@ public class MemberController {
     @SelfAuthorization
     @PutMapping("/members/{id}")
     public void modifyMember(@PathVariable("id") Long id, @Valid @RequestBody ModifyMemberRequestDto modifyMemberRequestDto) {
-        Member member = memberService.getByEmail(authentification.getLoginMemberEmail());
-
         memberService.modifyMember(id.toString(), modifyMemberRequestDto);
     }
 }
