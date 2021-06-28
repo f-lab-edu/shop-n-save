@@ -16,15 +16,11 @@ public class CreateProductRequestDto {
     @NotBlank(message = "잔여수량은 빈 값일 수 없습니다")
     private int quantity;
 
-    @NotBlank(message = "판매수량 빈 값일 수 없습니다")
-    private int salesCount;
-
     public Product toEntity() {
         Product product = Product.builder()
                 .productName(this.productName)
                 .fixedPrice(this.fixedPrice)
                 .quantity(this.quantity)
-                .salesCount(this.salesCount)
                 .build();
         return product;
     }
