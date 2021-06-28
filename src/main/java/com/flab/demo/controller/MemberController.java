@@ -8,7 +8,7 @@ import com.flab.demo.enums.Role;
 import com.flab.demo.interceptor.Authority;
 import com.flab.demo.interceptor.SelfAuthorization;
 import com.flab.demo.service.MemberService;
-import com.flab.demo.system.Authentification;
+import com.flab.demo.system.Authentication;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ import javax.validation.Valid;
 public class MemberController {
 
     private final MemberService memberService;
-    private final Authentification authentification;
+    private final Authentication authentication;
 
     @PostMapping("/members")
     @ResponseStatus(HttpStatus.CREATED)
@@ -37,7 +37,7 @@ public class MemberController {
 
     @PostMapping("/members/login")
     public void login(@Valid @RequestBody LoginMemberRequestDto loginMemberRequestDto) {
-        authentification.login(loginMemberRequestDto);
+        authentication.login(loginMemberRequestDto);
     }
 
     @Authority(target = {Role.BASIC_MEMBER})

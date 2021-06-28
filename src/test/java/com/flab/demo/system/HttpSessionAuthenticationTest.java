@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class HttpSessionAuthentificationTest {
+public class HttpSessionAuthenticationTest {
 
     private LoginMemberRequestDto loginMemberRequestDto;
 
@@ -30,7 +30,7 @@ public class HttpSessionAuthentificationTest {
     private HttpSession session;
 
     @InjectMocks
-    SessionAuthentification sessionAuthentification;
+    SessionAuthentication sessionAuthentication;
 
     @BeforeEach
     public void setUp() {
@@ -47,7 +47,7 @@ public class HttpSessionAuthentificationTest {
         when(memberMapper.getByEmail(loginMemberRequestDto.getEmail())).thenReturn(null);
 
         // when, then
-        UserAuthenticationFailException e = assertThrows(UserAuthenticationFailException.class, () -> sessionAuthentification.login(loginMemberRequestDto));
+        UserAuthenticationFailException e = assertThrows(UserAuthenticationFailException.class, () -> sessionAuthentication.login(loginMemberRequestDto));
         assertThat(e.getMessage()).isEqualTo("아이디가 존재하지 않거나 비밀번호가 틀립니다.");
     }
 
@@ -62,7 +62,7 @@ public class HttpSessionAuthentificationTest {
         when(memberMapper.getByEmail(loginMemberRequestDtoWithWrongPW.getEmail())).thenReturn(loginMemberRequestDto.toEntity());
 
         // when, then
-        UserAuthenticationFailException e = assertThrows(UserAuthenticationFailException.class, () -> sessionAuthentification.login(loginMemberRequestDtoWithWrongPW));
+        UserAuthenticationFailException e = assertThrows(UserAuthenticationFailException.class, () -> sessionAuthentication.login(loginMemberRequestDtoWithWrongPW));
         assertThat(e.getMessage()).isEqualTo("아이디가 존재하지 않거나 비밀번호가 틀립니다.");
     }
 
@@ -73,9 +73,9 @@ public class HttpSessionAuthentificationTest {
         when(memberMapper.getByEmail(loginMemberRequestDto.getEmail())).thenReturn(loginMemberRequestDto.toEntity());
 
         // when
-        sessionAuthentification.login(loginMemberRequestDto);
+        sessionAuthentication.login(loginMemberRequestDto);
 
         // then
-        verify(session).setAttribute(SessionAuthentification.LOGIN, loginMemberRequestDto.getEmail());
+        verify(session).setAttribute(SessionAuthentication.LOGIN, loginMemberRequestDto.getEmail());
     }
 }

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 @Component
 @RequiredArgsConstructor
-public class SessionAuthentification implements Authentification {
+public class SessionAuthentication implements Authentication {
 
     private final HttpSession session;
     private final MemberMapper memberMapper;
