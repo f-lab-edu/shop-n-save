@@ -29,7 +29,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 
         if(!(handler instanceof HandlerMethod)) return true;
         Authority auth = ((HandlerMethod) handler).getMethodAnnotation(Authority.class);
-        SelfAuthentication selfAuth = ((HandlerMethod) handler).getMethodAnnotation(SelfAuthentication.class);
+        SelfAuthorization selfAuth = ((HandlerMethod) handler).getMethodAnnotation(SelfAuthorization.class);
 
         if(auth == null) return true;
 
@@ -40,7 +40,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 
         /*
             - ADMIN 권한을 가진 사용자는 모든 API를 호출할 수 있습니다.
-            - 본인 인증이 필요한 API는 본인만 호출할 수 있습니다.
+            - 본인 권한이 필요한 API는 ADMIN, 본인만 호출할 수 있습니다.
             - 로그인한 사용자라면 BASIC_MEMBER 권한이 필요한 API를 호출할 수 있습니다.
          */
         if(member.getRole() == Role.ADMIN) return true;
