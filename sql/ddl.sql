@@ -14,7 +14,7 @@ CREATE TABLE product (
  fixed_price INT NOT NULL,
  quantity INT NOT NULL,
  sales_count INT NOT NULL,
- seller_id BIGINT NOT NULL,
+ seller_id BIGINT NOT NULL DEFAULT 0,
  FOREIGN KEY(seller_id)
  REFERENCES member_info(id) ON DELETE CASCADE,
  sales_yn CHAR(1) NOT NULL DEFAULT 'Y',
