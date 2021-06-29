@@ -1,15 +1,11 @@
-package com.flab.demo.interceptor;
-
-import com.flab.demo.enums.Role;
+package com.flab.demo.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(value = {ElementType.METHOD, ElementType.TYPE})
+@Target(value = {ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Authority {
-
-    Role[] target();
+public @interface LoginMember {
 }

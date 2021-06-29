@@ -1,11 +1,13 @@
 package com.flab.demo.interceptor;
 
+import com.flab.demo.annotation.Authority;
+import com.flab.demo.annotation.SelfAuthorization;
 import com.flab.demo.domain.Member;
 import com.flab.demo.enums.Role;
 import com.flab.demo.exception.member.ForbiddenException;
 import com.flab.demo.exception.member.UnAuthorizedException;
 import com.flab.demo.service.MemberService;
-import com.flab.demo.system.Authentification;
+import com.flab.demo.system.Authentication;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -22,7 +24,7 @@ import java.util.Map;
 public class AuthorityInterceptor implements HandlerInterceptor {
 
     private final MemberService memberService;
-    private final Authentification authentification;
+    private final Authentication authentication;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -34,7 +36,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
         if(auth == null) return true;
 
         //  로그인 유무를 확인합니다.
-        String memberEmail = authentification.getLoginMemberEmail();
+        String memberEmail = authentication.getLoginMemberEmail();
         if(memberEmail == null) throw new UnAuthorizedException();
         Member member = memberService.getByEmail(memberEmail);
 
