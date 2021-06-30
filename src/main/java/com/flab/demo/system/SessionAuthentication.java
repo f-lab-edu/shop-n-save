@@ -3,6 +3,7 @@ package com.flab.demo.system;
 import com.flab.demo.domain.AuthMember;
 import com.flab.demo.domain.Member;
 import com.flab.demo.dto.member.LoginMemberRequestDto;
+import com.flab.demo.exception.member.NotFoundMemberException;
 import com.flab.demo.exception.member.UserAuthenticationFailException;
 import com.flab.demo.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +26,9 @@ public class SessionAuthentication implements Authentication {
             session.invalidate();
         }
 
-        Member foundMember = memberMapper.getByEmail(loginMemberRequestDto.getEmail());
+        Member foundMember = memberMapper.getByEmail(loginMemberRequestDto.getEmail()).orElseThrow(NotFoundMemberException::new);
 
-        if(foundMember != null && StringUtils.equals(loginMemberRequestDto.getPassword(), foundMember.getPassword())) {
+        if(StringUtils.equals(loginMemberRequestDto.getPassword(), foundMember.getPassword())) {
             AuthMember authMember = new AuthMember(foundMember);
             session.setAttribute(LOGIN, JsonUtil.toJsonString(authMember));
         } else {

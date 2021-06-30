@@ -4,7 +4,6 @@ import com.flab.demo.domain.AuthMember;
 import com.flab.demo.enums.Role;
 import com.flab.demo.exception.member.ForbiddenException;
 import com.flab.demo.exception.member.UnAuthorizedException;
-import com.flab.demo.service.MemberService;
 import com.flab.demo.system.Authentication;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -21,7 +20,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AuthorityInterceptor implements HandlerInterceptor {
 
-    private final MemberService memberService;
     private final Authentication authentication;
 
     @Override
@@ -29,7 +27,6 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 
         if(!(handler instanceof HandlerMethod)) return true;
         Authority auth = ((HandlerMethod) handler).getMethodAnnotation(Authority.class);
-        SelfAuthorization selfAuth = ((HandlerMethod) handler).getMethodAnnotation(SelfAuthorization.class);
 
         if(auth == null) return true;
 
@@ -39,11 +36,9 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 
         /*
             - ADMIN 권한을 가진 사용자는 모든 API를 호출할 수 있습니다.
-            - 본인 권한이 필요한 API는 ADMIN, 본인만 호출할 수 있습니다.
             - 로그인한 사용자라면 BASIC_MEMBER 권한이 필요한 API를 호출할 수 있습니다.
          */
         if(authMember.getRole() == Role.ADMIN) return true;
-        if(selfAuth != null) selfAuthorizationCheck(request, authMember.getId());
         if(ArrayUtils.contains(auth.target(), Role.BASIC_MEMBER)) return true;
 
         if(!ArrayUtils.contains(auth.target(), authMember.getRole())) {

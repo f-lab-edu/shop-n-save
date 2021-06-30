@@ -6,7 +6,6 @@ import com.flab.demo.dto.member.LoginMemberRequestDto;
 import com.flab.demo.dto.member.ModifyMemberRequestDto;
 import com.flab.demo.enums.Role;
 import com.flab.demo.interceptor.Authority;
-import com.flab.demo.interceptor.SelfAuthorization;
 import com.flab.demo.service.MemberService;
 import com.flab.demo.system.Authentication;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,6 @@ public class MemberController {
     }
 
     @Authority(target = {Role.BASIC_MEMBER})
-    @SelfAuthorization
     @GetMapping("/members/{id}")
     public Member getById(@PathVariable("id") String id) {
         return memberService.getById(id);
@@ -41,7 +39,6 @@ public class MemberController {
     }
 
     @Authority(target = {Role.BASIC_MEMBER})
-    @SelfAuthorization
     @PutMapping("/members/{id}")
     public void modifyMember(@PathVariable("id") Long id, @Valid @RequestBody ModifyMemberRequestDto modifyMemberRequestDto) {
         memberService.modifyMember(id.toString(), modifyMemberRequestDto);
