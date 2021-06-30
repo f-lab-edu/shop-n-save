@@ -1,5 +1,6 @@
 package com.flab.demo.system;
 
+import com.flab.demo.domain.AuthMember;
 import com.flab.demo.domain.Member;
 import com.flab.demo.dto.member.LoginMemberRequestDto;
 import com.flab.demo.exception.member.UserAuthenticationFailException;
@@ -27,7 +28,8 @@ public class SessionAuthentication implements Authentication {
         Member foundMember = memberMapper.getByEmail(loginMemberRequestDto.getEmail());
 
         if(foundMember != null && StringUtils.equals(loginMemberRequestDto.getPassword(), foundMember.getPassword())) {
-            session.setAttribute(LOGIN, foundMember.getEmail());
+            AuthMember authMember = new AuthMember(foundMember);
+            session.setAttribute(LOGIN, JsonUtil.toJsonString(authMember));
         } else {
             throw new UserAuthenticationFailException();
         }
@@ -35,6 +37,18 @@ public class SessionAuthentication implements Authentication {
 
     @Override
     public String getLoginMemberEmail() {
-        return (String)session.getAttribute(LOGIN);
+        AuthMember authMember = JsonUtil.toObject((String)session.getAttribute(LOGIN), AuthMember.class);
+        return authMember.getEmail();
+    }
+
+    @Override
+    public Long getLoginMemberId() {
+        AuthMember authMember = JsonUtil.toObject((String)session.getAttribute(LOGIN), AuthMember.class);
+        return authMember.getId();
+    }
+
+    @Override
+    public AuthMember getLoginMember() {
+        return JsonUtil.toObject((String)session.getAttribute(LOGIN), AuthMember.class);
     }
 }

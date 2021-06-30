@@ -1,8 +1,6 @@
 package com.flab.demo.enums;
 
-import com.flab.demo.enums.CodeEnum;
 import com.flab.demo.exception.common.UnnownEnumValueException;
-import com.flab.demo.exception.member.UnknownRoleValueException;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
@@ -12,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Optional;
 
 /**
  * Enum(Java) ↔ int(DB)와 같이 자바 타입과 JDBC 타입이 일치하지 않는 경우

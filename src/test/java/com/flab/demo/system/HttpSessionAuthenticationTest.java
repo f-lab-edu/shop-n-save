@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -76,6 +78,7 @@ public class HttpSessionAuthenticationTest {
         sessionAuthentication.login(loginMemberRequestDto);
 
         // then
-        verify(session).setAttribute(SessionAuthentication.LOGIN, loginMemberRequestDto.getEmail());
+        verify(session).getAttribute(SessionAuthentication.LOGIN);
+        verify(session).setAttribute(eq(SessionAuthentication.LOGIN), anyString());
     }
 }
