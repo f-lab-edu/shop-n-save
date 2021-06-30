@@ -1,19 +1,27 @@
 package com.flab.demo.dto.product;
 
-import com.flab.demo.domain.Member;
 import com.flab.demo.domain.Product;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PositiveOrZero;
 
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CreateProductRequestDto {
 
-    @NotBlank(message = "상품명은 빈 값일 수 없습니다")
+    @NotEmpty(message = "상품명은 빈 값일 수 없습니다")
     private String productName;
 
-    @NotBlank(message = "정가는 빈 값일 수 없습니다")
+    @PositiveOrZero(message = "가격은 0원 이상이어야 합니다.")
     private int fixedPrice;
 
-    @NotBlank(message = "잔여수량은 빈 값일 수 없습니다")
+    @PositiveOrZero(message = "잔여수량은 0 이상이어야 합니다.")
     private int quantity;
 
     public Product toEntity() {
