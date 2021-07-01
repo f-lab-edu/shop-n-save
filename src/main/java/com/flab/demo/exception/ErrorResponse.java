@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,8 +34,10 @@ public class ErrorResponse {
 
         public static List<ErrorField> of(BindingResult bindingResult) {
             List<ErrorField> errorFields = bindingResult.getAllErrors().stream().map(error ->
-                    new ErrorField(((FieldError) error).getField(), ((FieldError) error).getRejectedValue().toString(),
+                    new ErrorField(((FieldError) error).getField(), String.valueOf(((FieldError) error).getRejectedValue()),
                             ((FieldError) error).getDefaultMessage())).collect(Collectors.toList());
+
+
 
             return errorFields;
         }

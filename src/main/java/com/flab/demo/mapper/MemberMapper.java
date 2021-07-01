@@ -1,10 +1,9 @@
 package com.flab.demo.mapper;
 
 import com.flab.demo.domain.Member;
-import com.flab.demo.dto.CreateMemberRequestDto;
 import org.apache.ibatis.annotations.*;
 
-import java.sql.Timestamp;
+import java.util.Optional;
 
 @Mapper
 public interface MemberMapper {
@@ -14,8 +13,11 @@ public interface MemberMapper {
     int create(@Param("member") Member member);
 
     @Select("SELECT * FROM MEMBER_INFO WHERE id=#{id}")
-    Member getById(@Param("id") String id);
+    Optional<Member> getById(@Param("id") String id);
 
     @Select("SELECT * FROM MEMBER_INFO WHERE email=#{email}")
-    Member getByEmail(@Param("email") String email);
+    Optional<Member> getByEmail(@Param("email") String email);
+
+    @Update("UPDATE MEMBER_INFO SET password = #{member.password}, name = #{member.name} WHERE id=#{id}")
+    void modifyById(@Param("id") String id, @Param("member") Member member);
 }
