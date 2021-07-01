@@ -1,5 +1,7 @@
 package com.flab.demo.controller;
 
+import com.flab.demo.annotation.LoginMember;
+import com.flab.demo.domain.AuthMember;
 import com.flab.demo.domain.Member;
 import com.flab.demo.dto.member.CreateMemberRequestDto;
 import com.flab.demo.dto.member.LoginMemberRequestDto;
@@ -40,8 +42,8 @@ public class MemberController {
 
     @Authority(target = {Role.BASIC_MEMBER})
     @PutMapping("/members/{id}")
-    public void modifyMember(@PathVariable("id") Long id, @Valid @RequestBody ModifyMemberRequestDto modifyMemberRequestDto) {
-        memberService.modifyMember(id.toString(), modifyMemberRequestDto);
+    public void modifyMember(@PathVariable("id") Long id, @Valid @RequestBody ModifyMemberRequestDto modifyMemberRequestDto, @LoginMember AuthMember authMember) {
+        memberService.modifyMember(id.toString(), modifyMemberRequestDto, authMember);
     }
 
     @DeleteMapping("/members/logout")
