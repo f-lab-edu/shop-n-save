@@ -16,7 +16,6 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolver {
 
     private final Authentication authentication;
-    private final MemberService memberService;
 
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
@@ -25,6 +24,6 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
 
     @Override
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
-        return memberService.getByEmail(authentication.getLoginMemberEmail());
+        return authentication.getLoginMember();
     }
 }

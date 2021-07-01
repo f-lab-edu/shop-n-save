@@ -1,7 +1,7 @@
 package com.flab.demo.controller;
 
 import com.flab.demo.annotation.LoginMember;
-import com.flab.demo.domain.Member;
+import com.flab.demo.domain.AuthMember;
 import com.flab.demo.dto.product.CreateProductRequestDto;
 import com.flab.demo.enums.Role;
 import com.flab.demo.annotation.Authority;
@@ -24,7 +24,7 @@ public class ProductController {
     @Authority(target = {Role.SELLER})
     @PostMapping("/products")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProduct(@Valid @RequestBody CreateProductRequestDto createProductRequestDto, @LoginMember Member member) {
+    public void createProduct(@Valid @RequestBody CreateProductRequestDto createProductRequestDto, @LoginMember AuthMember member) {
         productService.createProduct(createProductRequestDto, member.getId().toString());
     }
 }
