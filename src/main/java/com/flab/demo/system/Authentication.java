@@ -12,4 +12,6 @@ public interface Authentication {
     public Long getLoginMemberId();
 
     public AuthMember getLoginMember();
+
+    public void logout();
 }

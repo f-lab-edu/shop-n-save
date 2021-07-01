@@ -1,6 +1,7 @@
 package com.flab.demo.system;
 
 import com.flab.demo.dto.member.LoginMemberRequestDto;
+import com.flab.demo.exception.member.NotFoundMemberException;
 import com.flab.demo.exception.member.UserAuthenticationFailException;
 import com.flab.demo.mapper.MemberMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.servlet.http.HttpSession;
 
+import static java.util.Optional.empty;
+import static java.util.Optional.ofNullable;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -43,14 +46,14 @@ public class HttpSessionAuthenticationTest {
     }
 
     @Test
-    @DisplayName("등록되지 않은 Member 정보로 로그인을 시도하는 경우 UserAuthenticationFailException 예외가 발생한다")
+    @DisplayName("등록되지 않은 Member 정보로 로그인을 시도하는 경우 NotFoundMemberException 예외가 발생한다")
     public void unregistered_user_join() {
         // given
-        when(memberMapper.getByEmail(loginMemberRequestDto.getEmail())).thenReturn(null);
+        when(memberMapper.getByEmail(loginMemberRequestDto.getEmail())).thenReturn(empty());
 
         // when, then
-        UserAuthenticationFailException e = assertThrows(UserAuthenticationFailException.class, () -> sessionAuthentication.login(loginMemberRequestDto));
-        assertThat(e.getMessage()).isEqualTo("아이디가 존재하지 않거나 비밀번호가 틀립니다.");
+        NotFoundMemberException e = assertThrows(NotFoundMemberException.class, () -> sessionAuthentication.login(loginMemberRequestDto));
+        assertThat(e.getMessage()).isEqualTo("사용자를 찾을 수 없습니다.");
     }
 
     @Test
@@ -61,7 +64,7 @@ public class HttpSessionAuthenticationTest {
                 .email("test1223@test")
                 .password("wrongpw")
                 .build();
-        when(memberMapper.getByEmail(loginMemberRequestDtoWithWrongPW.getEmail())).thenReturn(loginMemberRequestDto.toEntity());
+        when(memberMapper.getByEmail(loginMemberRequestDtoWithWrongPW.getEmail())).thenReturn(ofNullable(loginMemberRequestDto.toEntity()));
 
         // when, then
         UserAuthenticationFailException e = assertThrows(UserAuthenticationFailException.class, () -> sessionAuthentication.login(loginMemberRequestDtoWithWrongPW));
@@ -72,7 +75,7 @@ public class HttpSessionAuthenticationTest {
     @DisplayName("올바른 정보의 아이디와 비밀번호로 로그인을 시도하는 경우 응답 헤더에 set-cookie 속성이 셋팅된다")
     public void join() throws Exception {
         // given
-        when(memberMapper.getByEmail(loginMemberRequestDto.getEmail())).thenReturn(loginMemberRequestDto.toEntity());
+        when(memberMapper.getByEmail(loginMemberRequestDto.getEmail())).thenReturn(ofNullable(loginMemberRequestDto.toEntity()));
 
         // when
         sessionAuthentication.login(loginMemberRequestDto);

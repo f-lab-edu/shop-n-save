@@ -12,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static java.util.Optional.empty;
+import static java.util.Optional.ofNullable;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -40,7 +42,7 @@ public class MemberServiceTest {
     @DisplayName("올바른 형태의 email 과 password 를 입력받은 경우 Member 테이블에 저장한다")
     public void join() {
         // given
-        when(memberMapper.getByEmail(createMemberRequestDto.getEmail())).thenReturn(null);
+        when(memberMapper.getByEmail(createMemberRequestDto.getEmail())).thenReturn(empty());
 
         // when
         memberService.join(createMemberRequestDto);
@@ -54,7 +56,7 @@ public class MemberServiceTest {
     @DisplayName("이미 가입된 이메일로 회원가입을 시도하는 경우 DuplicatedMemberException이 발생한다")
     public void duplicated_email_join() {
         // given
-        when(memberMapper.getByEmail(createMemberRequestDto.getEmail())).thenReturn(createMemberRequestDto.toEntity());
+        when(memberMapper.getByEmail(createMemberRequestDto.getEmail())).thenReturn(ofNullable(createMemberRequestDto.toEntity()));
 
         // when, then
         DuplicatedMemberException e = assertThrows(DuplicatedMemberException.class, () -> memberService.join(createMemberRequestDto));
