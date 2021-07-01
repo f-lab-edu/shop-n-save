@@ -35,11 +35,8 @@ public class MemberService {
         return memberMapper.getByEmail(email).orElseThrow(NotFoundMemberException::new);
     }
 
-    public void modifyMember(String id, ModifyMemberRequestDto modifyMemberRequestDto, AuthMember authMember) {
+    public void modifyMember(String id, ModifyMemberRequestDto modifyMemberRequestDto) {
         Member member = memberMapper.getById(id).orElseThrow(NotFoundMemberException::new);
-        if((authMember.getRole() != Role.ADMIN) && !StringUtils.equals(String.valueOf(member.getId()), id)) {
-            throw new ForbiddenException();
-        }
         memberMapper.modifyById(id, modifyMemberRequestDto.toEntity());
     }
 }

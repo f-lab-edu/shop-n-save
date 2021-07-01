@@ -8,6 +8,7 @@ import com.flab.demo.dto.member.LoginMemberRequestDto;
 import com.flab.demo.dto.member.ModifyMemberRequestDto;
 import com.flab.demo.enums.Role;
 import com.flab.demo.annotation.Authority;
+import com.flab.demo.exception.member.ForbiddenException;
 import com.flab.demo.service.MemberService;
 import com.flab.demo.system.Authentication;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,10 @@ public class MemberController {
     @Authority(target = {Role.BASIC_MEMBER})
     @PutMapping("/members/{id}")
     public void modifyMember(@PathVariable("id") Long id, @Valid @RequestBody ModifyMemberRequestDto modifyMemberRequestDto, @LoginMember AuthMember authMember) {
-        memberService.modifyMember(id.toString(), modifyMemberRequestDto, authMember);
+        if((authMember.getRole() != Role.ADMIN) && !authMember.getId().equals(id)) {
+            throw new ForbiddenException();
+        }
+        memberService.modifyMember(id.toString(), modifyMemberRequestDto);
     }
 
     @DeleteMapping("/members/logout")
