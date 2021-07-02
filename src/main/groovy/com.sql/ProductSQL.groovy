@@ -13,4 +13,22 @@ class ProductSQL {
                     "#{product.productName}, #{product.fixedPrice}, #{product.quantity}, #{sellerId}")
         }}
     }
+
+    public String getById(@Param("id") String id) {
+        return new SQL() {{
+            SELECT("*")
+            FROM("PRODUCT")
+            WHERE("id=#{id}")
+        }}
+    }
+
+    public String modifyProduct(@Param("id") String id, @Param("product") Product product) {
+        return new SQL() {{
+            UPDATE("PRODUCT")
+            SET("product_name=#{product.productName}")
+            SET("fixed_price=#{product.fixedPrice}")
+            SET("quantity=#{product.quantity}")
+            WHERE("id=#{id}")
+        }}
+    }
 }
