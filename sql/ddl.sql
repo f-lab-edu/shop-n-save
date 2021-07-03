@@ -19,3 +19,14 @@ CREATE TABLE product (
  create_date DATETIME DEFAULT CURRENT_TIMESTAMP,
  INDEX (product_name)
 ) engine=InnoDB default character set = utf8;
+
+CREATE TABLE product_detail (
+ id BIGINT AUTO_INCREMENT PRIMARY KEY,
+ sales_count INT NOT NULL DEFAULT 0,
+ content VARCHAR(800),
+ rating TINYINT,
+ product_id BIGINT NOT NULL,
+ FOREIGN KEY(product_id)
+ REFERENCES product(id) ON DELETE CASCADE,
+ create_date DATETIME DEFAULT CURRENT_TIMESTAMP
+) engine=InnoDB default character set = utf8;
