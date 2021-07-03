@@ -4,7 +4,7 @@ create table MEMBER_INFO (
  password VARCHAR(64),
  name VARCHAR(30),
  create_date DATETIME DEFAULT CURRENT_TIMESTAMP,
- tinyint role DEFAULT 3,
+ role TINYINT DEFAULT 3,
  INDEX (email)
 )engine=InnoDB default character set = utf8;
 
@@ -12,7 +12,7 @@ CREATE TABLE product (
  id BIGINT AUTO_INCREMENT PRIMARY KEY,
  product_name VARCHAR(50) NOT NULL,
  sales_count INT NOT NULL,
- seller_id BIGINT NOT NULL DEFAULT 0,
+ seller_id BIGINT NOT NULL,
  FOREIGN KEY(seller_id)
  REFERENCES member_info(id) ON DELETE CASCADE,
  sales_yn CHAR(1) NOT NULL DEFAULT 'Y',
