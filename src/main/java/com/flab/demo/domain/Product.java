@@ -12,8 +12,6 @@ public class Product {
     private Long id;
     private String productName;
     private int fixedPrice;
-    private int quantity;
-    private int salesCount;
     private Long sellerId;
     private String salesYn;
     private Timestamp createDate;

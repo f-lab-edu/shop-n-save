@@ -21,14 +21,10 @@ public class CreateProductRequestDto {
     @PositiveOrZero(message = "가격은 0원 이상이어야 합니다.")
     private int fixedPrice;
 
-    @PositiveOrZero(message = "잔여수량은 0 이상이어야 합니다.")
-    private int quantity;
-
     public Product toEntity() {
         Product product = Product.builder()
                 .productName(this.productName)
                 .fixedPrice(this.fixedPrice)
-                .quantity(this.quantity)
                 .build();
         return product;
     }
