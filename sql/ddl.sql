@@ -11,8 +11,6 @@ create table MEMBER_INFO (
 CREATE TABLE product (
  id BIGINT AUTO_INCREMENT PRIMARY KEY,
  product_name VARCHAR(50) NOT NULL,
- fixed_price INT NOT NULL,
- quantity INT NOT NULL,
  sales_count INT NOT NULL,
  seller_id BIGINT NOT NULL DEFAULT 0,
  FOREIGN KEY(seller_id)
