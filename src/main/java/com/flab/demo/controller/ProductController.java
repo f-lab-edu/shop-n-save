@@ -26,7 +26,7 @@ public class ProductController {
     @PostMapping("/products")
     @ResponseStatus(HttpStatus.CREATED)
     public void createProduct(@Valid @RequestBody CreateProductRequestDto createProductRequestDto, @LoginMember AuthMember member) {
-        productService.createProduct(createProductRequestDto, member.getId().toString());
+        productService.createProduct(createProductRequestDto, String.valueOf(member.getId()));
     }
 
     @GetMapping("/products/{id}")
