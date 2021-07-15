@@ -36,9 +36,6 @@ public class ErrorResponse {
             List<ErrorField> errorFields = bindingResult.getAllErrors().stream().map(error ->
                     new ErrorField(((FieldError) error).getField(), String.valueOf(((FieldError) error).getRejectedValue()),
                             ((FieldError) error).getDefaultMessage())).collect(Collectors.toList());
-
-
-
             return errorFields;
         }
     }
