@@ -1,10 +1,13 @@
 package com.flab.shopnsave.category;
 
-import com.flab.shopnsave.category.exception.NotFoundCategoryException;
 import com.flab.shopnsave.category.domain.Category;
-import com.flab.shopnsave.category.dto.CategoryRequestDto;
+import com.flab.shopnsave.category.dto.CreateCategoryRequestDto;
+import com.flab.shopnsave.category.dto.UpdateCategoryRequestDto;
+import com.flab.shopnsave.category.exception.NotFoundCategoryException;
 import com.flab.shopnsave.category.mapper.CategoryMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,19 +18,26 @@ public class CategoryService {
 
     private final CategoryMapper categoryMapper;
 
-    public void registerCategory(CategoryRequestDto categoryRequestDto) {
-        categoryMapper.registerCategory(categoryRequestDto.toEntity());
+    public void registerCategory(CreateCategoryRequestDto categoryRequestDto) {
+        if(categoryRequestDto.getParentId() == null) {
+            categoryMapper.registerCategory(categoryRequestDto.toEntity());
+            return;
+        }
+        Category parentCategory = getById(categoryRequestDto.getParentId());
+        categoryMapper.registerCategory(categoryRequestDto.toEntityWithDepth(parentCategory.getDepth() + 1));
     }
 
-    public Category getById(Integer id) {
+    public Category getById(int id) {
         return categoryMapper.getById(id).orElseThrow(NotFoundCategoryException::new);
     }
 
-    public List<Category> getAllCategories() {
-        return categoryMapper.getAllCategories();
+    @Cacheable(value="category", key = "#depth", unless="#result == null")
+    public List<Category> getAllCategories(int depth) {
+        return categoryMapper.getAllCategories(depth);
     }
 
-    public void updateCategory(Integer id, CategoryRequestDto categoryRequestDto) {
+    @CacheEvict(value="category")
+    public void updateCategory(int id, UpdateCategoryRequestDto categoryRequestDto) {
         Category category = getById(id);
         categoryRequestDto.getUpdatableCategoryName().ifPresent(category::changeCategoryName);
         categoryRequestDto.getUpdatableParentId().ifPresent(category::changeParentId);

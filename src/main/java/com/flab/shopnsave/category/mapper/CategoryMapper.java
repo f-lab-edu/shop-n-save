@@ -13,7 +13,7 @@ public interface CategoryMapper {
 
     Optional<Category> getById(int id);
 
-    List<Category> getAllCategories();
+    List<Category> getAllCategories(int depth);
 
     void updateCategory(Category category);
 }

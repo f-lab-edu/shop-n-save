@@ -1,21 +1,18 @@
 package com.flab.shopnsave.category.dto;
 
 import com.flab.shopnsave.category.domain.Category;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import java.util.Optional;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class CategoryRequestDto {
+public class CreateCategoryRequestDto {
 
     private Integer parentId;
+
+    private int depth;
 
     @NotBlank
     private String categoryName;
@@ -24,15 +21,17 @@ public class CategoryRequestDto {
         Category category = Category.builder()
                 .parentId(this.parentId)
                 .categoryName(this.categoryName)
+                .depth(0)
                 .build();
         return category;
     }
 
-    public Optional<Integer> getUpdatableParentId() {
-        return Optional.ofNullable(parentId);
-    }
-
-    public Optional<String> getUpdatableCategoryName() {
-        return Optional.ofNullable(categoryName);
+    public Category toEntityWithDepth(int depth) {
+        Category category = Category.builder()
+                .parentId(this.parentId)
+                .categoryName(this.categoryName)
+                .depth(depth)
+                .build();
+        return category;
     }
 }

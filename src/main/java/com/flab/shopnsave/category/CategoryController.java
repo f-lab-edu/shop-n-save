@@ -2,7 +2,8 @@ package com.flab.shopnsave.category;
 
 import com.flab.shopnsave.annotation.Authority;
 import com.flab.shopnsave.category.domain.Category;
-import com.flab.shopnsave.category.dto.CategoryRequestDto;
+import com.flab.shopnsave.category.dto.CreateCategoryRequestDto;
+import com.flab.shopnsave.category.dto.UpdateCategoryRequestDto;
 import com.flab.shopnsave.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,8 @@ public class CategoryController {
     @Authority(target = {Role.ADMIN})
     @PostMapping("/categories")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerCategory(@Valid @RequestBody final CategoryRequestDto categoryRequestDto) {
-        categoryService.registerCategory(categoryRequestDto);
+    public void registerCategory(@Valid @RequestBody final CreateCategoryRequestDto createCategoryRequestDto) {
+        categoryService.registerCategory(createCategoryRequestDto);
     }
 
     @GetMapping("/categories/{id}")
@@ -30,13 +31,13 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    public List<Category> getAllCategories() {
-        return categoryService.getAllCategories();
+    public List<Category> getAllCategories(@RequestParam(value="depth", defaultValue="0") final int depth) {
+        return categoryService.getAllCategories(depth);
     }
 
     @Authority(target = {Role.ADMIN})
     @PutMapping("/categories/{id}")
-    public void updateCategory(@PathVariable("id") int id, @Valid @RequestBody final CategoryRequestDto categoryRequestDto) {
+    public void updateCategory(@PathVariable("id") int id, @Valid @RequestBody final UpdateCategoryRequestDto categoryRequestDto) {
         categoryService.updateCategory(id, categoryRequestDto);
     }
 }
