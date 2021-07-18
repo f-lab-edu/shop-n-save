@@ -1,4 +1,4 @@
-package com.flab.demo.domain;
+package com.flab.shopnsave.category.domain;
 
 import lombok.Builder;
 import lombok.Getter;

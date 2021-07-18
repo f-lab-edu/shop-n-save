@@ -1,6 +1,6 @@
-package com.flab.demo.mapper;
+package com.flab.shopnsave.category.mapper;
 
-import com.flab.demo.domain.Category;
+import com.flab.shopnsave.category.domain.Category;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Optional;

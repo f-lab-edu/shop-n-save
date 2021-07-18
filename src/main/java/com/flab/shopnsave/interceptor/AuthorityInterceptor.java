@@ -4,6 +4,7 @@ import com.flab.shopnsave.annotation.Authority;
 import com.flab.shopnsave.enums.Role;
 import com.flab.shopnsave.member.domain.AuthMember;
 import com.flab.shopnsave.member.exception.ForbiddenException;
+import com.flab.shopnsave.member.exception.UnAuthorizedException;
 import com.flab.shopnsave.system.Authentication;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ArrayUtils;
@@ -29,7 +30,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
         if (auth == null) return true;
 
         //  로그인 유무를 확인합니다.
-        AuthMember authMember = authentication.getLoginMember();
+        AuthMember authMember = authentication.getLoginMember().orElseThrow(UnAuthorizedException::new);
 
         /*
             - ADMIN 권한을 가진 사용자는 모든 API를 호출할 수 있습니다.

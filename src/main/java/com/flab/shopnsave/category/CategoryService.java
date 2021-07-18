@@ -1,7 +1,7 @@
-package com.flab.demo.service;
+package com.flab.shopnsave.category;
 
-import com.flab.demo.dto.category.CategoryRequestDto;
-import com.flab.demo.mapper.CategoryMapper;
+import com.flab.shopnsave.category.dto.CategoryRequestDto;
+import com.flab.shopnsave.category.mapper.CategoryMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

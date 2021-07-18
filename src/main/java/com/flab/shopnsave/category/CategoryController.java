@@ -1,9 +1,8 @@
-package com.flab.demo.controller;
+package com.flab.shopnsave.category;
 
-import com.flab.demo.dto.category.CategoryRequestDto;
-import com.flab.demo.enums.Role;
-import com.flab.demo.interceptor.Authority;
-import com.flab.demo.service.CategoryService;
+import com.flab.shopnsave.annotation.Authority;
+import com.flab.shopnsave.category.dto.CategoryRequestDto;
+import com.flab.shopnsave.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;

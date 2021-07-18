@@ -1,6 +1,6 @@
-package com.flab.demo.dto.category;
+package com.flab.shopnsave.category.dto;
 
-import com.flab.demo.domain.Category;
+import com.flab.shopnsave.category.domain.Category;
 import lombok.Builder;
 import lombok.Getter;
 
