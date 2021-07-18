@@ -7,7 +7,7 @@
         <result property="productName" column="product_name"/>
         <result property="fixedPrice" column="fixed_price"/>
         <result property="sellerId" column="seller_id"/>
-        <result property="salesYn" column="seller_yn"/>
+        <result property="salesYn" column="sales_yn"/>
         <result property="createDate" column="create_date"/>
     </resultMap>
 
@@ -16,7 +16,8 @@
         VALUES(#{productName}, #{fixedPrice}, #{sellerId})
     </insert>
 
-    <select id="getById" parameterType="Long" resultType="com.flab.demo.domain.Product">
+    <!--<select id="getById" parameterType="Long" resultType="com.flab.demo.domain.Product">-->
+    <select id="getById" parameterType="Long" resultMap="product">
         SELECT *
             FROM PRODUCT
             WHERE id = #{id}
