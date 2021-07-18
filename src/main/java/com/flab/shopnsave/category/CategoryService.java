@@ -1,9 +1,9 @@
 package com.flab.shopnsave.category;
 
+import com.flab.shopnsave.category.exception.NotFoundCategoryException;
 import com.flab.shopnsave.category.domain.Category;
 import com.flab.shopnsave.category.dto.CategoryRequestDto;
 import com.flab.shopnsave.category.mapper.CategoryMapper;
-import com.flab.demo.exception.category.NotFoundCategoryException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

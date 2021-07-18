@@ -1,6 +1,6 @@
-package com.flab.demo.exception.category;
+package com.flab.shopnsave.category.exception;
 
-import com.flab.demo.exception.BusinessException;
+import com.flab.shopnsave.exception.BusinessException;
 import org.springframework.http.HttpStatus;
 
 public class NotFoundCategoryException extends BusinessException {
