@@ -2,22 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flab.demo.mapper.ProductMapper">
 
-    <resultMap type="com.flab.demo.domain.Product" id="product">
-        <result property="id" column="id"/>
-        <result property="productName" column="product_name"/>
-        <result property="fixedPrice" column="fixed_price"/>
-        <result property="sellerId" column="seller_id"/>
-        <result property="salesYn" column="sales_yn"/>
-        <result property="createDate" column="create_date"/>
-    </resultMap>
-
     <insert id="create" parameterType="com.flab.demo.domain.Product">
         INSERT INTO PRODUCT(product_name, fixed_price, seller_id)
         VALUES(#{productName}, #{fixedPrice}, #{sellerId})
     </insert>
 
-    <!--<select id="getById" parameterType="Long" resultType="com.flab.demo.domain.Product">-->
-    <select id="getById" parameterType="Long" resultMap="product">
+    <select id="getById" parameterType="Long" resultType="com.flab.demo.domain.Product">
         SELECT *
             FROM PRODUCT
             WHERE id = #{id}
