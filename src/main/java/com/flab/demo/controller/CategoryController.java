@@ -1,6 +1,8 @@
 package com.flab.demo.controller;
 
 import com.flab.demo.dto.category.CategoryRequestDto;
+import com.flab.demo.enums.Role;
+import com.flab.demo.interceptor.Authority;
 import com.flab.demo.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
+    @Authority(target = {Role.ADMIN})
     @PostMapping("/categories")
     @ResponseStatus(HttpStatus.CREATED)
     public void register(@Valid @RequestBody CategoryRequestDto categoryRequestDto) {
