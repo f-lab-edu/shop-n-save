@@ -21,13 +21,4 @@ public class ModifyProductRequestDto {
 
     @PositiveOrZero(message = "가격은 0원 이상이어야 합니다.")
     private int fixedPrice;
-
-    public Product toEntity(Long productId) {
-        Product product = Product.builder()
-                .id(productId)
-                .productName(this.productName)
-                .fixedPrice(this.fixedPrice)
-                .build();
-        return product;
-    }
 }

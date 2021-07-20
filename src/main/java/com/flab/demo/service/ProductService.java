@@ -34,6 +34,7 @@ public class ProductService {
        if((authMember.getRole() != Role.ADMIN) && !authMember.getId().equals(product.getSellerId())) {
            throw new ForbiddenException();
        }
-       productMapper.modifyProduct(modifyProductRequestDto.toEntity(id));
+       product.modifyProduct(modifyProductRequestDto);
+       productMapper.modifyProduct(product);
     }
 }
