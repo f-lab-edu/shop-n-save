@@ -19,17 +19,17 @@ public class ProductService {
 
     private final ProductMapper productMapper;
 
-    public void createProduct(CreateProductRequestDto createProductRequestDto, Long sellerId) {
+    public void createProduct(CreateProductRequestDto createProductRequestDto, long sellerId) {
         productMapper.create(createProductRequestDto.toEntity(sellerId));
     }
 
     @Cacheable(value="product", key = "#id", unless="#result == null")
-    public Product getById(Long id) {
+    public Product getById(long id) {
         return productMapper.getById(id).orElseThrow(NotFoundProductException::new);
     }
 
     @CacheEvict(value="product", key = "#id")
-    public void modifyProduct(Long id, ModifyProductRequestDto modifyProductRequestDto, AuthMember authMember) {
+    public void modifyProduct(long id, ModifyProductRequestDto modifyProductRequestDto, AuthMember authMember) {
        Product product = getById(id);
        if((authMember.getRole() != Role.ADMIN) && !authMember.getId().equals(product.getSellerId())) {
            throw new ForbiddenException();

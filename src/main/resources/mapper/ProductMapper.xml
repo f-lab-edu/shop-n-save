@@ -7,7 +7,7 @@
         VALUES(#{productName}, #{fixedPrice}, #{sellerId})
     </insert>
 
-    <select id="getById" parameterType="Long" resultType="com.flab.demo.domain.Product">
+    <select id="getById" parameterType="long" resultType="com.flab.demo.domain.Product">
         SELECT id, product_name, fixed_price, seller_id, sales_yn, create_date
             FROM PRODUCT
             WHERE id = #{id}

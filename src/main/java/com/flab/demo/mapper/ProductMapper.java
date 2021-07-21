@@ -10,7 +10,7 @@ public interface ProductMapper {
 
     int create(Product product);
 
-    Optional<Product> getById(Long id);
+    Optional<Product> getById(long id);
 
     void modifyProduct(Product product);
 }
