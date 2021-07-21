@@ -23,18 +23,18 @@ public class ProductController {
     @Authority(target = {Role.SELLER})
     @PostMapping("/products")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProduct(@Valid @RequestBody CreateProductRequestDto createProductRequestDto, @LoginMember AuthMember member) {
+    public void createProduct(@Valid @RequestBody final CreateProductRequestDto createProductRequestDto, @LoginMember AuthMember member) {
         productService.createProduct(createProductRequestDto, member.getId());
     }
 
     @GetMapping("/products/{id}")
-    public Product getById(@PathVariable("id") Long id) {
+    public Product getById(@PathVariable("id") final long id) {
         return productService.getById(id);
     }
 
     @Authority(target = {Role.SELLER})
     @PutMapping("/products/{id}")
-    public void modifyProduct(@PathVariable("id") Long id, @Valid @RequestBody ModifyProductRequestDto modifyProductRequestDto, @LoginMember AuthMember authMember) {
+    public void modifyProduct(@PathVariable("id") final long id, @Valid @RequestBody final ModifyProductRequestDto modifyProductRequestDto, @LoginMember AuthMember authMember) {
         productService.modifyProduct(id, modifyProductRequestDto, authMember);
     }
 }
