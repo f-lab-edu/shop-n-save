@@ -1,6 +1,8 @@
 package com.flab.demo.interceptor;
 
 import com.flab.demo.domain.AuthMember;
+import com.flab.demo.annotation.Authority;
+import com.flab.demo.annotation.SelfAuthorization;
 import com.flab.demo.enums.Role;
 import com.flab.demo.exception.member.ForbiddenException;
 import com.flab.demo.exception.member.UnAuthorizedException;
@@ -46,12 +48,5 @@ public class AuthorityInterceptor implements HandlerInterceptor {
         }
 
         return true;
-    }
-
-    private void selfAuthorizationCheck(HttpServletRequest request, Long memberId) {
-        Map pathVariables = (Map) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
-        Long pathMemberId = Long.valueOf((String) pathVariables.get("id"));
-
-        if(!pathMemberId.equals(memberId)) throw new ForbiddenException();
     }
 }

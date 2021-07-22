@@ -1,8 +1,10 @@
 package com.flab.demo.service;
 
+import com.flab.demo.domain.AuthMember;
 import com.flab.demo.domain.Member;
 import com.flab.demo.dto.member.CreateMemberRequestDto;
 import com.flab.demo.dto.member.ModifyMemberRequestDto;
+import com.flab.demo.enums.Role;
 import com.flab.demo.exception.member.DuplicatedMemberException;
 import com.flab.demo.exception.member.ForbiddenException;
 import com.flab.demo.exception.member.NotFoundMemberException;
@@ -35,9 +37,6 @@ public class MemberService {
 
     public void modifyMember(String id, ModifyMemberRequestDto modifyMemberRequestDto) {
         Member member = memberMapper.getById(id).orElseThrow(NotFoundMemberException::new);
-        if(!StringUtils.equals(String.valueOf(member.getId()), id)) {
-            throw new ForbiddenException();
-        }
         memberMapper.modifyById(id, modifyMemberRequestDto.toEntity());
     }
 }
