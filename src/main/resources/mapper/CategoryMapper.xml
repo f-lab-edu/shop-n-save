@@ -2,8 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flab.shopnsave.category.mapper.CategoryMapper">
 
-    <insert id="register" parameterType="com.flab.shopnsave.category.domain.Category">
+    <insert id="registerCategory" parameterType="com.flab.demo.domain.Category">
         INSERT INTO CATEGORY(parent_id, category_name)
         VALUES(#{parentId}, #{categoryName})
     </insert>
+
+    <select id="getById" parameterType="int" resultType="com.flab.demo.domain.Category">
+        SELECT id, parent_id, category_name, create_date
+        FROM CATEGORY
+        WHERE id=#{id}
+    </select>
+
+    <select id="getAllCategories" resultType="com.flab.demo.domain.Category">
+        SELECT id, parent_id, category_name, create_date
+        FROM CATEGORY
+    </select>
+
+    <update id="updateCategory" parameterType="com.flab.demo.domain.Category">
+        UPDATE CATEGORY
+        SET parent_id = #{parentId},
+            category_name = #{categoryName}
+        WHERE id=#{id}
+    </update>
 </mapper>
