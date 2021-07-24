@@ -1,6 +1,6 @@
 package com.flab.demo.enums;
 
-import com.flab.demo.exception.member.UnknownRoleValueException;
+import com.flab.demo.member.exception.UnknownRoleValueException;
 import org.apache.ibatis.type.MappedTypes;
 
 public enum Role implements CodeEnum {

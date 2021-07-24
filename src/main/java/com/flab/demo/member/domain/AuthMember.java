@@ -1,4 +1,4 @@
-package com.flab.demo.domain;
+package com.flab.demo.member.domain;
 
 import com.flab.demo.enums.Role;
 import lombok.Getter;
@@ -12,7 +12,7 @@ public class AuthMember {
     private String email;
     private Role role;
 
-    public AuthMember(Member member){
+    public AuthMember(Member member) {
         this.id = member.getId();
         this.email = member.getEmail();
         this.role = member.getRole();

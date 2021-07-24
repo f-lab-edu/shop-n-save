@@ -1,6 +1,6 @@
-package com.flab.demo.dto.member;
+package com.flab.demo.member.dto;
 
-import com.flab.demo.domain.Member;
+import com.flab.demo.member.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

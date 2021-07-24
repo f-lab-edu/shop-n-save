@@ -1,7 +1,6 @@
 package com.flab.demo.resolver;
 
 import com.flab.demo.annotation.LoginMember;
-import com.flab.demo.service.MemberService;
 import com.flab.demo.system.Authentication;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;

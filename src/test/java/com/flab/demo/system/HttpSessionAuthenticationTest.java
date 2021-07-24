@@ -1,9 +1,9 @@
 package com.flab.demo.system;
 
-import com.flab.demo.dto.member.LoginMemberRequestDto;
-import com.flab.demo.exception.member.NotFoundMemberException;
-import com.flab.demo.exception.member.UserAuthenticationFailException;
-import com.flab.demo.mapper.MemberMapper;
+import com.flab.demo.member.dto.LoginMemberRequestDto;
+import com.flab.demo.member.exception.NotFoundMemberException;
+import com.flab.demo.member.exception.UserAuthenticationFailException;
+import com.flab.demo.member.mapper.MemberMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

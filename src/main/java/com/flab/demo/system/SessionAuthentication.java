@@ -1,11 +1,12 @@
 package com.flab.demo.system;
 
-import com.flab.demo.domain.AuthMember;
-import com.flab.demo.domain.Member;
-import com.flab.demo.dto.member.LoginMemberRequestDto;
-import com.flab.demo.exception.member.NotFoundMemberException;
-import com.flab.demo.exception.member.UserAuthenticationFailException;
-import com.flab.demo.mapper.MemberMapper;
+import com.flab.demo.member.domain.AuthMember;
+import com.flab.demo.member.domain.Member;
+import com.flab.demo.member.dto.LoginMemberRequestDto;
+import com.flab.demo.member.exception.NotFoundMemberException;
+import com.flab.demo.member.exception.UnAuthorizedException;
+import com.flab.demo.member.exception.UserAuthenticationFailException;
+import com.flab.demo.member.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -22,13 +23,13 @@ public class SessionAuthentication implements Authentication {
 
     @Override
     public void login(LoginMemberRequestDto loginMemberRequestDto) {
-        if(session.getAttribute(LOGIN) != null) {
+        if (session.getAttribute(LOGIN) != null) {
             session.invalidate();
         }
 
         Member foundMember = memberMapper.getByEmail(loginMemberRequestDto.getEmail()).orElseThrow(NotFoundMemberException::new);
 
-        if(StringUtils.equals(loginMemberRequestDto.getPassword(), foundMember.getPassword())) {
+        if (StringUtils.equals(loginMemberRequestDto.getPassword(), foundMember.getPassword())) {
             AuthMember authMember = new AuthMember(foundMember);
             session.setAttribute(LOGIN, JsonUtil.toJsonString(authMember));
         } else {
@@ -37,20 +38,9 @@ public class SessionAuthentication implements Authentication {
     }
 
     @Override
-    public String getLoginMemberEmail() {
-        AuthMember authMember = JsonUtil.toObject((String)session.getAttribute(LOGIN), AuthMember.class);
-        return authMember.getEmail();
-    }
-
-    @Override
-    public Long getLoginMemberId() {
-        AuthMember authMember = JsonUtil.toObject((String)session.getAttribute(LOGIN), AuthMember.class);
-        return authMember.getId();
-    }
-
-    @Override
     public AuthMember getLoginMember() {
-        return JsonUtil.toObject((String)session.getAttribute(LOGIN), AuthMember.class);
+        if (session.getAttribute(LOGIN) == null) throw new UnAuthorizedException();
+        return JsonUtil.toObject((String) session.getAttribute(LOGIN), AuthMember.class);
     }
 
     @Override

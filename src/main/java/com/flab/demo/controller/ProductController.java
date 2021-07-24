@@ -1,12 +1,12 @@
 package com.flab.demo.controller;
 
+import com.flab.demo.annotation.Authority;
 import com.flab.demo.annotation.LoginMember;
-import com.flab.demo.domain.AuthMember;
 import com.flab.demo.domain.Product;
 import com.flab.demo.dto.product.CreateProductRequestDto;
 import com.flab.demo.dto.product.ModifyProductRequestDto;
 import com.flab.demo.enums.Role;
-import com.flab.demo.annotation.Authority;
+import com.flab.demo.member.domain.AuthMember;
 import com.flab.demo.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

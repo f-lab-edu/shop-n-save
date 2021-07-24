@@ -1,4 +1,4 @@
-package com.flab.demo.exception.member;
+package com.flab.demo.member.exception;
 
 import com.flab.demo.exception.BusinessException;
 import org.springframework.http.HttpStatus;
