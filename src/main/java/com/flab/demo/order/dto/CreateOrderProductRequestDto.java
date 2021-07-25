@@ -18,9 +18,9 @@ import java.util.List;
 @Builder
 public class CreateOrderProductRequestDto {
 
-    @NotBlank(message = "상품 id는 빈 값일 수 없습니다")
+    @NotNull(message = "상품 id는 빈 값일 수 없습니다")
     private Long productId;
 
-    @Min(value = 1, message = "주문 항목은 1개 이상이어야 합니다")
+    @Min(value = 1, message = "주문 수량은 1개 이상이어야 합니다")
     private int count;
 }
