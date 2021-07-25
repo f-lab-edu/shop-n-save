@@ -1,6 +1,6 @@
-package com.flab.demo.dto.category;
+package com.flab.demo.category.dto;
 
-import com.flab.demo.domain.Category;
+import com.flab.demo.category.domain.Category;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,9 +1,9 @@
-package com.flab.demo.service;
+package com.flab.demo.category;
 
-import com.flab.demo.domain.Category;
-import com.flab.demo.dto.category.CategoryRequestDto;
-import com.flab.demo.exception.category.NotFoundCategoryException;
-import com.flab.demo.mapper.CategoryMapper;
+import com.flab.demo.category.domain.Category;
+import com.flab.demo.category.dto.CategoryRequestDto;
+import com.flab.demo.category.exception.NotFoundCategoryException;
+import com.flab.demo.category.mapper.CategoryMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

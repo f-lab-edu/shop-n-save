@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.flab.shopnsave.category.mapper.CategoryMapper">
 
     <insert id="registerCategory" parameterType="com.flab.shopnsave.category.domain.Category">
@@ -13,12 +14,21 @@
         WHERE id=#{id}
     </select>
 
+<<<<<<< HEAD
     <select id="getAllCategories" resultType="com.flab.shopnsave.category.domain.Category">
         SELECT id, parent_id, category_name, created_at, depth
         FROM CATEGORY
     </select>
 
     <update id="updateCategory" parameterType="com.flab.shopnsave.category.domain.Category">
+=======
+    <select id="getAllCategories" resultType="com.flab.demo.category.domain.Category">
+        SELECT id, parent_id, category_name, create_date
+        FROM CATEGORY
+    </select>
+
+    <update id="updateCategory" parameterType="com.flab.demo.category.domain.Category">
+>>>>>>> refactor: 패키지 구조 변경, import 정리, convention 정리
         UPDATE CATEGORY
         SET parent_id = #{parentId},
             category_name = #{categoryName}

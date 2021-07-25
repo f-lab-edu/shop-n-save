@@ -1,4 +1,4 @@
-package com.flab.demo.domain;
+package com.flab.demo.category.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
