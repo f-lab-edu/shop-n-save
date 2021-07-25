@@ -6,5 +6,5 @@ create table MEMBER_INFO (
     create_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     role TINYINT DEFAULT 3,
     address VARCHAR(255) NOT NULL,
-    INDEX (email)
+    UNIQUE INDEX (email)
 )engine=InnoDB default character set = utf8;
