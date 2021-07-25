@@ -11,7 +11,8 @@ package com.flab.demo.category;
 
 import com.flab.demo.annotation.Authority;
 import com.flab.demo.category.domain.Category;
-import com.flab.demo.category.dto.CategoryRequestDto;
+import com.flab.demo.category.dto.CreateCategoryRequestDto;
+import com.flab.demo.category.dto.UpdateCategoryRequestDto;
 import com.flab.demo.enums.Role;
 >>>>>>> refactor: 패키지 구조 변경, import 정리, convention 정리:src/main/java/com/flab/demo/category/CategoryController.java
 import lombok.RequiredArgsConstructor;

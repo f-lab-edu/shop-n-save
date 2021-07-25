@@ -1,7 +1,8 @@
 package com.flab.demo.category;
 
 import com.flab.demo.category.domain.Category;
-import com.flab.demo.category.dto.CategoryRequestDto;
+import com.flab.demo.category.dto.CreateCategoryRequestDto;
+import com.flab.demo.category.dto.UpdateCategoryRequestDto;
 import com.flab.demo.category.exception.NotFoundCategoryException;
 import com.flab.demo.category.mapper.CategoryMapper;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ public class CategoryService {
 
     private final CategoryMapper categoryMapper;
 
-    public void registerCategory(CategoryRequestDto categoryRequestDto) {
+    public void registerCategory(CreateCategoryRequestDto categoryRequestDto) {
         categoryMapper.registerCategory(categoryRequestDto.toEntity());
     }
 
@@ -27,7 +28,7 @@ public class CategoryService {
         return categoryMapper.getAllCategories();
     }
 
-    public void updateCategory(Integer id, CategoryRequestDto categoryRequestDto) {
+    public void updateCategory(Integer id, UpdateCategoryRequestDto categoryRequestDto) {
         Category category = getById(id);
         categoryRequestDto.getUpdatableCategoryName().ifPresent(category::changeCategoryName);
         categoryRequestDto.getUpdatableParentId().ifPresent(category::changeParentId);

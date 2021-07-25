@@ -7,13 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import java.util.Optional;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CategoryRequestDto {
+public class CreateCategoryRequestDto {
 
     private Integer parentId;
 
@@ -26,13 +25,5 @@ public class CategoryRequestDto {
                 .categoryName(this.categoryName)
                 .build();
         return category;
-    }
-
-    public Optional<Integer> getUpdatableParentId() {
-        return Optional.ofNullable(parentId);
-    }
-
-    public Optional<String> getUpdatableCategoryName() {
-        return Optional.ofNullable(categoryName);
     }
 }
