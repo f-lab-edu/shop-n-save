@@ -6,6 +6,8 @@ import com.flab.demo.category.dto.UpdateCategoryRequestDto;
 import com.flab.demo.category.exception.NotFoundCategoryException;
 import com.flab.demo.category.mapper.CategoryMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,10 +26,12 @@ public class CategoryService {
         return categoryMapper.getById(id).orElseThrow(NotFoundCategoryException::new);
     }
 
+    @Cacheable(value="category", unless="#result == null")
     public List<Category> getAllCategories() {
         return categoryMapper.getAllCategories();
     }
 
+    @CacheEvict(value="category")
     public void updateCategory(Integer id, UpdateCategoryRequestDto categoryRequestDto) {
         Category category = getById(id);
         categoryRequestDto.getUpdatableCategoryName().ifPresent(category::changeCategoryName);
