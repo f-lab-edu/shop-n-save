@@ -1,4 +1,3 @@
-<<<<<<< HEAD:src/main/java/com/flab/shopnsave/category/CategoryController.java
 package com.flab.shopnsave.category;
 
 import com.flab.shopnsave.annotation.Authority;
