@@ -9,7 +9,8 @@ import lombok.Getter;
 public class OrderProduct {
 
     private Long id;
-    private Order order;
-    private Product product;
-    private int count;
+    private Long orderId;
+    private Long productId;
+    private Integer count;
+    private Integer price;
 }

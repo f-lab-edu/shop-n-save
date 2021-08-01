@@ -18,11 +18,12 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class OrderController {
 
-    //@Authority(target = {Role.BASIC_MEMBER})
+    private final OrderService orderService;
+
+    @Authority(target = {Role.BASIC_MEMBER})
     @PostMapping("/orders")
     @ResponseStatus(HttpStatus.CREATED)
-    public void placeOrder(@Valid @RequestBody final CreateOrderRequestDto createOrderRequestDto/*, @LoginMember AuthMember authMember*/) {
-        // 주문 생성
-        System.out.println("주문 생성");
+    public void placeOrder(@Valid @RequestBody final CreateOrderRequestDto createOrderRequestDto, @LoginMember AuthMember authMember) {
+        orderService.placeOrder(createOrderRequestDto, authMember);
     }
 }
