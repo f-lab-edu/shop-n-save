@@ -11,10 +11,12 @@ public class AuthMember {
     private Long id;
     private String email;
     private Role role;
+    private String address;
 
     public AuthMember(Member member) {
         this.id = member.getId();
         this.email = member.getEmail();
         this.role = member.getRole();
+        this.address = member.getAddress();
     }
 }
