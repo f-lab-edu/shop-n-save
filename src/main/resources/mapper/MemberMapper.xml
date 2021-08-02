@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flab.shopnsave.member.mapper.MemberMapper">
+
+    <insert id="create" parameterType="com.flab.shopnsave.member.domain.Member">
+        INSERT INTO MEMBER_INFO(email, password, name, address)
+        VALUES(#{email}, #{password}, #{name}, #{address})
+    </insert>
+
+    <select id="getByEmail" parameterType="String" resultType="com.flab.shopnsave.member.domain.Member">
+        SELECT id, email, password, name, address, create_date, role
+        FROM MEMBER_INFO
+        WHERE email = #{email}
+    </select>
+
+    <select id="getById" parameterType="long" resultType="com.flab.shopnsave.member.domain.Member">
+        SELECT id, email, password, name, address, create_date, role
+        FROM MEMBER_INFO
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateMember" parameterType="com.flab.shopnsave.member.domain.Member">
+        UPDATE MEMBER_INFO
+        SET password = #{password},
+            name = #{name},
+            address = #{address}
+        WHERE id=#{id}
+    </update>
+</mapper>
