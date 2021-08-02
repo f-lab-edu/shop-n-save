@@ -1,11 +1,11 @@
-package com.flab.demo.order;
+package com.flab.shopnsave.order;
 
-import com.flab.demo.annotation.Authority;
-import com.flab.demo.annotation.LoginMember;
-import com.flab.demo.domain.AuthMember;
-import com.flab.demo.enums.Role;
-import com.flab.demo.order.domain.Order;
-import com.flab.demo.order.dto.CreateOrderRequestDto;
+import com.flab.shopnsave.annotation.Authority;
+import com.flab.shopnsave.annotation.LoginMember;
+import com.flab.shopnsave.enums.Role;
+import com.flab.shopnsave.member.domain.AuthMember;
+import com.flab.shopnsave.order.domain.Order;
+import com.flab.shopnsave.order.dto.CreateOrderRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,7 @@
-package com.flab.demo.order.mapper;
+package com.flab.shopnsave.order.mapper;
 
-import com.flab.demo.order.domain.Order;
-import com.flab.demo.order.domain.OrderProduct;
+import com.flab.shopnsave.order.domain.Order;
+import com.flab.shopnsave.order.domain.OrderProduct;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

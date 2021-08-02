@@ -1,6 +1,6 @@
-package com.flab.demo.order.exception;
+package com.flab.shopnsave.order.exception;
 
-import com.flab.demo.exception.BusinessException;
+import com.flab.shopnsave.exception.BusinessException;
 import org.springframework.http.HttpStatus;
 
 public class NotFoundOrderException extends BusinessException {

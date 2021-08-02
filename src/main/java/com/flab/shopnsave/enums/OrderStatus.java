@@ -1,6 +1,6 @@
-package com.flab.demo.enums;
+package com.flab.shopnsave.enums;
 
-import com.flab.demo.order.exception.UnknownOrderStatusValueException;
+import com.flab.shopnsave.order.exception.UnknownOrderStatusValueException;
 import org.apache.ibatis.type.MappedTypes;
 
 public enum OrderStatus implements CodeEnum {

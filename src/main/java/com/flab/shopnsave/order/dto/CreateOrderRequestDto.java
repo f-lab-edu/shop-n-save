@@ -1,7 +1,7 @@
-package com.flab.demo.order.dto;
+package com.flab.shopnsave.order.dto;
 
-import com.flab.demo.domain.AuthMember;
-import com.flab.demo.order.domain.Order;
+import com.flab.shopnsave.member.domain.AuthMember;
+import com.flab.shopnsave.order.domain.Order;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-import static com.flab.demo.enums.OrderStatus.WAITING_PAYMENT;
+import static com.flab.shopnsave.enums.OrderStatus.WAITING_PAYMENT;
 
 @Getter
 @NoArgsConstructor

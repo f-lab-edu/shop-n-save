@@ -1,4 +1,4 @@
-package com.flab.demo.order.domain;
+package com.flab.shopnsave.order.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,6 +1,6 @@
-package com.flab.demo.order.dto;
+package com.flab.shopnsave.order.dto;
 
-import com.flab.demo.order.domain.OrderProduct;
+import com.flab.shopnsave.order.domain.OrderProduct;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

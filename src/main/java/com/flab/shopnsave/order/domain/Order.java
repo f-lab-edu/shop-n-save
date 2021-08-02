@@ -1,6 +1,6 @@
-package com.flab.demo.order.domain;
+package com.flab.shopnsave.order.domain;
 
-import com.flab.demo.enums.OrderStatus;
+import com.flab.shopnsave.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
