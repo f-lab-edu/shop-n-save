@@ -1,21 +1,24 @@
 package com.flab.demo.order.domain;
 
-import com.flab.demo.order.enums.OrderStatus;
+import com.flab.demo.enums.OrderStatus;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 import java.util.List;
 
 @Builder
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order {
 
     private Long id;
     private OrderStatus status;
     private Long ordererId;
     private String address;
-    private Integer totalPrice;
     private List<OrderProduct> orderProductList;
     private Timestamp createDate;
 
@@ -31,11 +34,7 @@ public class Order {
 
     }
 
-    public void getStatus() {
-
-    }
-
     public void getTotalPrice() {
-
+        //orderProductList.stream().map(a -> a.getTotalPrice())
     }
 }

@@ -1,26 +1,21 @@
 package com.flab.demo.order.mapper;
 
-import com.flab.demo.domain.Member;
 import com.flab.demo.order.domain.Order;
-import com.sql.MemberSQL;
-import org.apache.ibatis.annotations.*;
+import com.flab.demo.order.domain.OrderProduct;
+import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
 import java.util.Optional;
 
 @Mapper
 public interface OrderMapper {
 
-    @InsertProvider(type = MemberSQL.class, method = "create")
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    int placeOrder(@Param("member") Order order);
+    int createOrder(Order order);
 
-    @SelectProvider(type = MemberSQL.class, method = "getById")
-    Optional<Member> getById(@Param("id") String id);
+    int createOrderProducts(List<OrderProduct> orderProduct);
 
-    @SelectProvider(type = MemberSQL.class, method = "getByEmail")
-    Optional<Member> getByEmail(@Param("email") String email);
+    Optional<Order> getById(long id);
 
-    @SelectProvider(type = MemberSQL.class, method = "modifyById")
-    void modifyById(@Param("id") String id, @Param("member") Member member);
+    void modifyOrder(Order order);
 }
 

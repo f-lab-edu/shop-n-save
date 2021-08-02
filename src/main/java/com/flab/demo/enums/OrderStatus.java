@@ -1,7 +1,5 @@
-package com.flab.demo.order.enums;
+package com.flab.demo.enums;
 
-import com.flab.demo.enums.CodeEnum;
-import com.flab.demo.enums.CodeEnumTypeHandler;
 import com.flab.demo.order.exception.UnknownOrderStatusValueException;
 import org.apache.ibatis.type.MappedTypes;
 

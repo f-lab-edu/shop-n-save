@@ -21,10 +21,12 @@ public class CreateOrderProductRequestDto {
     @Min(value = 1, message = "주문 수량은 1개 이상이어야 합니다")
     private int count;
 
-    public OrderProduct toEntity() {
+    public OrderProduct toEntity(long orderId, int orderPrice) {
         OrderProduct orderProduct = OrderProduct.builder()
+                .orderId(orderId)
                 .productId(this.productId)
                 .count(this.count)
+                .orderPrice(orderPrice)
                 .build();
         return orderProduct;
     }
