@@ -7,14 +7,14 @@
         <result property="status" column="status"/>
         <result property="ordererId" column="ordererId"/>
         <result property="address" column="address"/>
-        <result property="createDate" column="createDate"/>
+        <result property="createdAt" column="createdAt"/>
         <collection property="orderProductList" ofType="com.flab.shopnsave.order.domain.OrderProduct">
             <id property="id" column="id"/>
             <result property="orderId" column="orderId"/>
             <result property="productId" column="productId"/>
             <result property="count" column="count"/>
             <result property="orderPrice" column="orderPrice"/>
-            <result property="createDate" column="createDate"/>
+            <result property="createdAt" column="createdAt"/>
         </collection>
     </resultMap>
 
@@ -33,8 +33,8 @@
     </insert>
 
     <select id="getById" parameterType="long" resultMap="orderResult">
-        SELECT OI.id as id, OI.order_status as status, OI.orderer_id as ordererId, OI.address as address, OI.create_date as createDate,
-               OP.id as id, OP.order_id as orderId, OP.product_id as productId, OP.count as count, OP.order_price as orderPrice, OP.create_date as createDate
+        SELECT OI.id as id, OI.order_status as status, OI.orderer_id as ordererId, OI.address as address, OI.created_at as createdAt,
+               OP.id as id, OP.order_id as orderId, OP.product_id as productId, OP.count as count, OP.order_price as orderPrice, OP.created_at as createdAt
         FROM ORDER_INFO OI LEFT OUTER JOIN ORDER_PRODUCT OP
             ON OI.id = OP.order_id
         WHERE OI.id=#{id}

@@ -3,5 +3,5 @@ CREATE TABLE order_info (
     order_status TINYINT DEFAULT 1,
     orderer_id BIGINT NOT NULL,
     address varchar(255),
-    create_date DATETIME DEFAULT CURRENT_TIMESTAMP
+    created_date DATETIME DEFAULT CURRENT_TIMESTAMP
 ) engine=InnoDB default character set = utf8;

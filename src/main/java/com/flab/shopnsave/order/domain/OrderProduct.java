@@ -14,7 +14,7 @@ public class OrderProduct {
     private long productId;
     private int count;
     private int orderPrice;
-    private Timestamp createDate;
+    private Timestamp createdAt;
 
     @Builder
     public OrderProduct(long orderId, long productId, int count, int orderPrice) {

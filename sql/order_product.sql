@@ -4,7 +4,7 @@ CREATE TABLE order_product (
     product_id BIGINT NOT NULL,
     count INT,
     order_price INT,
-    create_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(order_id)
         REFERENCES order_info(id),
     FOREIGN KEY(product_id)

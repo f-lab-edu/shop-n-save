@@ -16,7 +16,7 @@ public class Order {
     private long ordererId;
     private String address;
     private List<OrderProduct> orderProductList;
-    private Timestamp createDate;
+    private Timestamp createdAt;
 
     @Builder
     public Order(OrderStatus status, long ordererId, String address, List<OrderProduct> orderProductList) {
