@@ -1,7 +1,6 @@
 package com.flab.shopnsave.category;
 
 import com.flab.shopnsave.annotation.Authority;
-import com.flab.shopnsave.category.CategoryService;
 import com.flab.shopnsave.category.domain.Category;
 import com.flab.shopnsave.category.dto.CreateCategoryRequestDto;
 import com.flab.shopnsave.category.dto.UpdateCategoryRequestDto;

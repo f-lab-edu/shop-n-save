@@ -1,6 +1,9 @@
 package com.flab.shopnsave.category.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 import java.sql.Timestamp;
