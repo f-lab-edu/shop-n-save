@@ -1,7 +1,10 @@
 package com.flab.shopnsave.order.domain;
 
 import com.flab.shopnsave.enums.OrderStatus;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 import java.sql.Timestamp;
@@ -22,6 +25,7 @@ public class Order {
     public Order(OrderStatus status, long ordererId, String address, List<OrderProduct> orderProductList) {
         Assert.notNull(status, "상태가 존재하지 않습니다");
         Assert.isTrue(ordererId > 0, "주문자 정보가 존재하지 않습니다");
+        Assert.hasText(address, "주소가 존재하지 않습니다");
 
         this.status = status;
         this.ordererId = ordererId;

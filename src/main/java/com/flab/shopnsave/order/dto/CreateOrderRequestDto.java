@@ -26,9 +26,9 @@ public class CreateOrderRequestDto {
     private List<CreateOrderProductRequestDto> orderProductRequestDtoList;
 
     public Order toEntity(AuthMember authMember) {
-        // TODO : address 추가
         Order order = Order.builder()
                 .status(WAITING_PAYMENT)
+                .address(authMember.getAddress())
                 .ordererId(authMember.getId())
                 .build();
         return order;
