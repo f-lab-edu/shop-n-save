@@ -8,37 +8,18 @@
         VALUES(#{parentId}, #{categoryName}, #{depth})
     </insert>
 
-<<<<<<< HEAD
     <select id="getById" parameterType="int" resultType="com.flab.shopnsave.category.domain.Category">
         SELECT id, parent_id, category_name, created_at, depth
-=======
-    <select id="getById" parameterType="int" resultType="com.flab.demo.category.domain.Category">
-        SELECT id, parent_id, category_name, create_date, depth
->>>>>>> add: depth 컬럼 추가 및 depth 별 카테고리 조회 기능 추가
         FROM CATEGORY
         WHERE id=#{id}
     </select>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     <select id="getAllCategories" resultType="com.flab.shopnsave.category.domain.Category">
         SELECT id, parent_id, category_name, created_at, depth
         FROM CATEGORY
     </select>
 
     <update id="updateCategory" parameterType="com.flab.shopnsave.category.domain.Category">
-=======
-    <select id="getAllCategories" resultType="com.flab.demo.category.domain.Category">
-=======
-    <select id="getAllCategories" parameterType="int" resultType="com.flab.demo.category.domain.Category">
->>>>>>> add: depth 컬럼 추가 및 depth 별 카테고리 조회 기능 추가
-        SELECT id, parent_id, category_name, create_date
-        FROM CATEGORY
-        WHERE depth=#{depth}
-    </select>
-
-    <update id="updateCategory" parameterType="com.flab.demo.category.domain.Category">
->>>>>>> refactor: 패키지 구조 변경, import 정리, convention 정리
         UPDATE CATEGORY
         SET parent_id = #{parentId},
             category_name = #{categoryName}
