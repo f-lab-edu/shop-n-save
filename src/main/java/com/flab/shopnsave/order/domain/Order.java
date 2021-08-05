@@ -46,6 +46,6 @@ public class Order {
     }
 
     public void getTotalPrice() {
-        //orderProductList.stream().map(a -> a.getTotalPrice())
+
     }
 }

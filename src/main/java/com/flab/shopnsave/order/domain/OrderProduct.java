@@ -1,6 +1,9 @@
 package com.flab.shopnsave.order.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 import java.sql.Timestamp;
@@ -26,9 +29,5 @@ public class OrderProduct {
         this.productId = productId;
         this.count = count;
         this.orderPrice = orderPrice;
-    }
-
-    public int getTotalPrice() {
-        return count * orderPrice;
     }
 }
