@@ -3,7 +3,7 @@ CREATE TABLE order_product (
     order_id BIGINT NOT NULL,
     product_id BIGINT NOT NULL,
     count INT,
-    order_price INT,
+    order_price BIGINT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(order_id)
         REFERENCES order_info(id),
