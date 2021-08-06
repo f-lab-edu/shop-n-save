@@ -37,13 +37,10 @@ public class Order {
     private boolean isAvailableCancel() {
         switch (status) {
             case WAITING_PAYMENT:
-                return true;
             case PREPARING_DELIVERY:
                 return true;
             case SHIPPING:
-                return false;
             case DELIVERY_COMPLETED:
-                return false;
             case CANCELED:
                 return false;
             default:
