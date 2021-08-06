@@ -31,7 +31,10 @@ public class MemberController {
 
     @Authority(target = {Role.BASIC_MEMBER})
     @GetMapping("/members/{id}")
-    public Member getById(@PathVariable("id") final long id) {
+    public Member getById(@PathVariable("id") final long id, @LoginMember AuthMember authMember) {
+        if((authMember.getRole() != Role.ADMIN) && !authMember.getId().equals(id)) {
+            throw new ForbiddenException();
+        }
         return memberService.getById(id);
     }
 
