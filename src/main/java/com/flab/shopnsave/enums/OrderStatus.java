@@ -5,9 +5,7 @@ import org.apache.ibatis.type.MappedTypes;
 
 public enum OrderStatus implements CodeEnum {
 
-    WAITING_PAYMENT(1) { public boolean isShippingChangeable() { return true; } }
-
-    , PREPARING_DELIVERY(2), SHIPPING(3), DELIVERY_COMPLETED(4), CANCELED(5);
+    WAITING_PAYMENT(1), PREPARING_DELIVERY(2), SHIPPING(3), DELIVERY_COMPLETED(4), CANCELED(5);
 
     private final int value;
 

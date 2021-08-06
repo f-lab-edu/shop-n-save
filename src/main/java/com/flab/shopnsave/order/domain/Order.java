@@ -1,6 +1,7 @@
 package com.flab.shopnsave.order.domain;
 
 import com.flab.shopnsave.enums.OrderStatus;
+import com.flab.shopnsave.order.exception.UnknownOrderStatusValueException;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,19 +34,20 @@ public class Order {
         this.orderProductList = orderProductList;
     }
 
-    public void place() {
-
-    }
-
-    public void pay() {
-
-    }
-
-    public void cancel() {
-
-    }
-
-    public void getTotalPrice() {
-
+    private boolean isAvailableCancel() {
+        switch (status) {
+            case WAITING_PAYMENT:
+                return true;
+            case PREPARING_DELIVERY:
+                return true;
+            case SHIPPING:
+                return false;
+            case DELIVERY_COMPLETED:
+                return false;
+            case CANCELED:
+                return false;
+            default:
+                throw new UnknownOrderStatusValueException(status.getCode());
+        }
     }
 }
