@@ -28,12 +28,16 @@ public class CreateMemberRequestDto {
     @NotBlank(message = "주소는 빈 값일 수 없습니다")
     private String address;
 
+    @NotBlank(message = "전화번호는 빈 값일 수 없습니다")
+    private String phone;
+
     public Member toEntity() {
         Member member = Member.builder()
                 .email(this.email)
                 .password(this.password)
                 .name(this.name)
                 .address(this.address)
+                .phone(this.phone)
                 .build();
         return member;
     }
