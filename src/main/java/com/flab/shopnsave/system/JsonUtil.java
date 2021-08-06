@@ -2,7 +2,10 @@ package com.flab.shopnsave.system;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JsonUtil {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
