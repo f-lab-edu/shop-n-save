@@ -6,6 +6,6 @@ import org.springframework.http.HttpStatus;
 public class UnknownOrderStatusValueException extends BusinessException {
 
     public UnknownOrderStatusValueException(int value) {
-        super("알 수 없는 배송 상태 입니다. OrderStatusValue " + value, HttpStatus.INTERNAL_SERVER_ERROR);
+        super("알 수 없는 주문 상태 입니다. OrderStatusValue " + value, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
