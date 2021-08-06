@@ -16,6 +16,6 @@ public interface OrderMapper {
 
     Optional<Order> getById(long id);
 
-    void modifyOrder(Order order);
+    void updateOrder(Order order);
 }
 
