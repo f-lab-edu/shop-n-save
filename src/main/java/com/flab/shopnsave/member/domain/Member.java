@@ -5,8 +5,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.util.Assert;
 
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
 @Getter
@@ -23,13 +23,7 @@ public class Member {
     private String phone;
 
     @Builder
-    public Member(String email, String password, String name, String address, String phone) {
-        Assert.hasText(email, "이메일이 존재하지 않습니다");
-        Assert.hasText(password, "비밀번호가 존재하지 않습니다");
-        Assert.hasText(name, "이름이 존재하지 않습니다");
-        Assert.hasText(address, "주소가 존재하지 않습니다");
-        Assert.hasText(phone, "전화번호가 존재하지 않습니다");
-
+    public Member(@NotBlank String email, @NotBlank String password, @NotBlank String name, @NotBlank String address, @NotBlank String phone) {
         this.email = email;
         this.password = password;
         this.name = name;
