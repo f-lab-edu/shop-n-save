@@ -31,7 +31,7 @@ public class Order {
         this.orderProductList = orderProductList;
     }
 
-    private boolean isAvailableCancel() {
+    public boolean isAvailableCancel() {
         switch (status) {
             case WAITING_PAYMENT:
             case PREPARING_DELIVERY:
@@ -43,5 +43,23 @@ public class Order {
             default:
                 throw new UnknownOrderStatusValueException(status.getCode());
         }
+    }
+
+    public boolean isAvailablePay() {
+        switch (status) {
+            case WAITING_PAYMENT:
+                return true;
+            case PREPARING_DELIVERY:
+            case SHIPPING:
+            case DELIVERY_COMPLETED:
+            case CANCELED:
+                return false;
+            default:
+                throw new UnknownOrderStatusValueException(status.getCode());
+        }
+    }
+
+    public int getTotalPrice() {
+        return orderProductList.stream().mapToInt(OrderProduct::getTotalPrice).sum();
     }
 }

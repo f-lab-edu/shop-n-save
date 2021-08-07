@@ -30,4 +30,8 @@ public class OrderProduct {
         this.count = count;
         this.orderPrice = orderPrice;
     }
+
+    public int getTotalPrice() {
+        return count * orderPrice;
+    }
 }

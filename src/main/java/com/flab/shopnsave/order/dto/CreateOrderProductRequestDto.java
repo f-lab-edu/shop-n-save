@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
@@ -15,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class CreateOrderProductRequestDto {
 
-    @NotNull(message = "상품 id는 빈 값일 수 없습니다")
+    @Min(value = 1, message = "상품 id가 존재해야 합니다")
     private long productId;
 
     @Min(value = 1, message = "주문 수량은 1개 이상이어야 합니다")
