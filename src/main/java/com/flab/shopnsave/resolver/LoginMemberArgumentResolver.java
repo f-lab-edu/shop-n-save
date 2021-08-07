@@ -1,6 +1,7 @@
 package com.flab.shopnsave.resolver;
 
 import com.flab.shopnsave.annotation.LoginMember;
+import com.flab.shopnsave.member.exception.UnAuthorizedException;
 import com.flab.shopnsave.system.Authentication;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
@@ -23,6 +24,6 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
 
     @Override
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
-        return authentication.getLoginMember();
+        return authentication.getLoginMember().orElseThrow(UnAuthorizedException::new);
     }
 }

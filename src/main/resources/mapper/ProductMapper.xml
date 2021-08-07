@@ -19,4 +19,13 @@
             fixed_price = #{fixedPrice}
         WHERE id=#{id}
     </update>
+
+    <select id="getByIdList" resultType="com.flab.shopnsave.domain.Product">
+        SELECT id, product_name, fixed_price, seller_id, sales_yn, create_date
+        FROM PRODUCT
+        WHERE id IN
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
 </mapper>
