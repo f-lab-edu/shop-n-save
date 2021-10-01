@@ -30,7 +30,7 @@ public class SessionAuthentication implements Authentication {
         Member foundMember = memberMapper.getByEmail(loginMemberRequestDto.getEmail()).orElseThrow(NotFoundMemberException::new);
 
         if (StringUtils.equals(loginMemberRequestDto.getPassword(), foundMember.getPassword())) {
-            AuthMember authMember = new AuthMember(foundMember);
+            AuthMember authMember = AuthMember.newInstance(foundMember);
             session.setAttribute(LOGIN, JsonUtil.toJsonString(authMember));
         } else {
             throw new UserAuthenticationFailException();

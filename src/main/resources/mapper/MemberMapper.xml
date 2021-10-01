@@ -3,18 +3,18 @@
 <mapper namespace="com.flab.shopnsave.member.mapper.MemberMapper">
 
     <insert id="create" parameterType="com.flab.shopnsave.member.domain.Member">
-        INSERT INTO MEMBER_INFO(email, password, name, address)
-        VALUES(#{email}, #{password}, #{name}, #{address})
+        INSERT INTO MEMBER_INFO(email, password, name, address, phone)
+        VALUES(#{email}, #{password}, #{name}, #{address}, #{phone})
     </insert>
 
     <select id="getByEmail" parameterType="String" resultType="com.flab.shopnsave.member.domain.Member">
-        SELECT id, email, password, name, address, create_date, role
+        SELECT id, email, password, name, address, create_date, role, phone
         FROM MEMBER_INFO
         WHERE email = #{email}
     </select>
 
     <select id="getById" parameterType="long" resultType="com.flab.shopnsave.member.domain.Member">
-        SELECT id, email, password, name, address, create_date, role
+        SELECT id, email, password, name, address, create_date, role, phone
         FROM MEMBER_INFO
         WHERE id = #{id}
     </select>
@@ -23,7 +23,8 @@
         UPDATE MEMBER_INFO
         SET password = #{password},
             name = #{name},
-            address = #{address}
+            address = #{address},
+            phone = #{phone}
         WHERE id=#{id}
     </update>
 </mapper>

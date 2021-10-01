@@ -38,6 +38,7 @@ public class MemberService {
         updateMemberRequestDto.getUpdatableName().ifPresent(member::changeName);
         updateMemberRequestDto.getUpdatablePassword().ifPresent(member::changePassword);
         updateMemberRequestDto.getUpdatableAddress().ifPresent(member::changeAddress);
+        updateMemberRequestDto.getUpdatablePhone().ifPresent(member::changePhone);
         memberMapper.updateMember(member);
     }
 }
